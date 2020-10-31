@@ -19,7 +19,7 @@
         <label for="wall_opening_bottom_to_left">Наклонная внизу слева:</label>
         <input id="wall_opening_bottom_to_left" type="number" name="wall_opening_bottom_to_left" value="500">
         <label for="bottom_to_left_assembly_seam">шов:</label>
-        <input id="bottom_to_left_assembly_seam" type="number" name="bottom_to_left_assembly_seam" value="50">
+        <input id="bottom_to_left_assembly_seam" type="number" name="bottom_to_left_assembly_seam" value="20">
         <label for="negate_bottom_to_left_assembly_seam">или галочка, если это заход за четверть:</label>
         <input id="negate_bottom_to_left_assembly_seam" type="checkbox" name="negate_bottom_to_left_assembly_seam"><br/>
         <label for="wall_opening_bottom_to_left_width">Ширина наклонной внизу слева:</label>
@@ -37,7 +37,7 @@
         <label for="wall_opening_left_to_top">Наклонная вверху слева:</label>
         <input id="wall_opening_left_to_top" type="number" name="wall_opening_left_to_top" value="500">
         <label for="left_to_top_assembly_seam">шов:</label>
-        <input id="left_to_top_assembly_seam" type="number" name="left_to_top_assembly_seam" value="50">
+        <input id="left_to_top_assembly_seam" type="number" name="left_to_top_assembly_seam" value="20">
         <label for="negate_left_to_top_assembly_seam">или галочка, если это заход за четверть:</label>
         <input id="negate_left_to_top_assembly_seam" type="checkbox" name="negate_left_to_top_assembly_seam"><br/>
         <label for="wall_opening_left_to_top_width">Ширина наклонной вверху слева:</label>
@@ -55,7 +55,7 @@
         <label for="wall_opening_top_to_right">Наклонная вверху справа:</label>
         <input id="wall_opening_top_to_right" type="number" name="wall_opening_top_to_right" value="500">
         <label for="top_to_right_assembly_seam">шов:</label>
-        <input id="top_to_right_assembly_seam" type="number" name="top_to_right_assembly_seam" value="50">
+        <input id="top_to_right_assembly_seam" type="number" name="top_to_right_assembly_seam" value="20">
         <label for="negate_top_to_right_assembly_seam">или галочка, если это заход за четверть:</label>
         <input id="negate_top_to_right_assembly_seam" type="checkbox" name="negate_top_to_right_assembly_seam"><br/>
         <label for="wall_opening_top_to_right_width">Ширина наклонной вверху справа:</label>
@@ -73,7 +73,7 @@
         <label for="wall_opening_right_to_bottom">Наклонная внизу справа:</label>
         <input id="wall_opening_right_to_bottom" type="number" name="wall_opening_right_to_bottom" value="500">
         <label for="right_to_bottom_assembly_seam">шов:</label>
-        <input id="right_to_bottom_assembly_seam" type="number" name="right_to_bottom_assembly_seam" value="50">
+        <input id="right_to_bottom_assembly_seam" type="number" name="right_to_bottom_assembly_seam" value="20">
         <label for="negate_right_to_bottom_assembly_seam">или галочка, если это заход за четверть:</label>
         <input id="negate_right_to_bottom_assembly_seam" type="checkbox" name="negate_right_to_bottom_assembly_seam"><br/>
         <label for="wall_opening_right_to_bottom_width">Ширина наклонной внизу справа:</label>
