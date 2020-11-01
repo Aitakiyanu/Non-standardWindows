@@ -35,7 +35,6 @@ $wopoints = [[$woblw, 0], [0, $woblh], [0, $woblh + $wol], [$woltw, $woblh + $wo
 //вычисляем массив коэффициентов k и b для прямых вида y=kx+b, начиная с нижней горизонтальной прямой (wall opening straight lines coefficients)
 $woslcoefs = [[]]
 
-
 ?>
 
 </body>
