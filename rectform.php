@@ -5,8 +5,8 @@
     <title>Ввод размеров проема</title>
 </head>
 <body>
-<form action="rectwincalc.php" method="get">
-    <fieldset>
+<form action="rectwincalc.php" method="post">
+<fieldset>
         <legend>Размеры проема</legend>
         <label for="wall_opening_width">Ширина:</label>
         <input id="wall_opening_width" type="number" name="wall_opening_width" value="1300"><br/>
