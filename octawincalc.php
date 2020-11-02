@@ -33,7 +33,7 @@ $rbas = isset($_POST["negate_right_to_bottom_assembly_seam"]) ? (int)$_POST["rig
 //Вычисляем массив точек, начиная с левой точки по нижнему краю восьмиугольника (wall opening points)
 $wopoints = [[$woblw, 0], [0, $woblh], [0, $woblh + $wol], [$woltw, $woblh + $wol + $wolth], [$woltw + $wot, $worbh + $wor + $wotrh], [$woltw + $wot + $wotrw, $worbh + $wor], [$woblw + $wob + $worbw, $worbh], [$woblw + $wob, 0]];
 //вычисляем массив коэффициентов k и b для прямых вида y=kx+b, начиная с нижней горизонтальной прямой (wall opening straight lines coefficients)
-$woslcoefs = [[]]
+$woslcoefs = [[]];
 
 ?>
 

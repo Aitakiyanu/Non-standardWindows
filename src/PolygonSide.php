@@ -23,7 +23,7 @@ class PolygonSide
         $this->sideSeam = $sideSeam;
         $this->startX = $this->sideNumber == 0 ? $this->sideWidth : $previousEndX;
         $this->startY = $previousEndY;
-        $this->endX = $this->sideNumber == 0 ? $this->startX - $sideWidth : 0;
+        $this->endX = $this->sideNumber == 0 ? $this->startX + $sideWidth : 0;
         $this->endY = $previousEndY + $sideHeight;
         $this->coefficientA = $this->startY - $this->endY;
         $this->coefficientB = $this->endX - $this->startX;
