@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Размеры окна</title>
+    <style>
+        input[type=number]{
+            width: 50px;
+        }
+    </style>
 </head>
 <body>
 <?php
