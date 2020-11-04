@@ -13,9 +13,8 @@
 <?php
 include_once 'src/form.php';
 if (count($_POST) > 0) {
-    include_once 'src/PolygonSide.php';
-    include_once 'src/array_filling.php';
-    print_r($wallOpeningArray);
+    include_once 'src/WallOpeningSide.php';
+    include_once 'src/array-filling.php';
 };
 ?>
 </body>

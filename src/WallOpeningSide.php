@@ -1,6 +1,6 @@
 <?php
 
-class PolygonSide
+class WallOpeningSide
 {
     public int $sideNumber;
     public int $sideLength;
