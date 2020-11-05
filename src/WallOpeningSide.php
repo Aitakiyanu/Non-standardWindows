@@ -2,7 +2,6 @@
 
 class WallOpeningSide
 {
-    public int $sideNumber;
     public int $sideLength;
     public int $sideWidth;
     public int $sideHeight;
@@ -14,9 +13,8 @@ class WallOpeningSide
     public int $coefficientA; //коэффициент A в функции прямой Ax+By+C=0
     public int $coefficientB; //коэффициент B в функции прямой Ax+By+C=0
     public int $coefficientC; //коэффициент C в функции прямой Ax+By+C=0
-    public function __construct($sideNumber, $sideLength, $sideWidth, $sideHeight, $sideSeam, $previousEndX, $previousEndY)
+    public function __construct($sideLength, $sideWidth, $sideHeight, $sideSeam, $previousEndX, $previousEndY)
     {
-        $this->sideNumber = $sideNumber;
         $this->sideLength = $sideLength;
         $this->sideWidth = $sideWidth;
         $this->sideHeight = $sideHeight;
