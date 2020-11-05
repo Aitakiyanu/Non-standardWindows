@@ -8,4 +8,4 @@ function calculateSlopingSideHeightDifference(int $width, int $height, int $bott
     $heightDifference = $newHeight - $height;
     return $heightDifference;
 }
-$windowSidesArray = [];
+$windowSides = [];

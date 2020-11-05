@@ -2,5 +2,5 @@
 
 class WindowSide
 {
-    public int $sideNumber;
+    public int $coefficient;
 }
