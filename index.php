@@ -16,6 +16,9 @@ if (count($_POST) > 0) {
     include_once 'src/WallOpeningSide.php';
     include_once 'src/Wall-Opening-Sides-Array.php';
 };
+if (isset($wallOpeningSides)) {
+    foreach ($wallOpeningSides as $key => $value)
+};
 ?>
 </body>
 </html>
