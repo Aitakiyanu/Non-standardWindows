@@ -26,5 +26,40 @@ class WallOpeningSide
         $this->coefficientA = $this->startY - $this->endY;
         $this->coefficientB = $this->endX - $this->startX;
         $this->coefficientC = $this->startX * $this->endY - $this->endX * $this->startY;
+        $triangleArea = abs($sideWidth * $sideHeight / 2);
+        $triangleHeight = $triangleArea / $sideLength;
+        $newTriangleHeight = $triangleHeight + $sideSeam;
+        $similarityCoefficient = $newTriangleHeight / $triangleHeight;
+        $newSideHeight = $sideHeight * $similarityCoefficient;
+        $newSideWidth = $sideWidth * $similarityCoefficient;
+        $heightDifference = abs($newSideHeight - $sideHeight);
+        $widthDifference = abs($newSideWidth - $sideWidth);
+        if ($this->sideWidth <> 0 && $this->sideHeight <> 0) {
+            if ($this->sideWidth > 0) {
+                if ($this->sideHeight >0) {
+                    $auxiliaryStartX = $this->startX;
+                    $auxiliaryStartY = $this->startY - $heightDifference;
+                    $auxiliaryEndX = $this->endX + $widthDifference;
+                    $auxiliaryEndY = $this->endY;
+                } else {
+                    $auxiliaryStartX = $this->startX - $widthDifference;
+                    $auxiliaryStartY = $this->startY;
+                    $auxiliaryEndX = $this->endX;
+                    $auxiliaryEndY = $this->endY - $heightDifference;
+                }
+            } else {
+                if ($this->sideHeight >0) {
+                    $auxiliaryStartX = $this->startX + $widthDifference;
+                    $auxiliaryStartY = $this->startY;
+                    $auxiliaryEndX = $this->endX;
+                    $auxiliaryEndY = $this->endY + $heightDifference;
+                } else {
+                    $auxiliaryStartX = $this->startX;
+                    $auxiliaryStartY = $this->startY + $heightDifference;
+                    $auxiliaryEndX = $this->endX + $widthDifference;
+                    $auxiliaryEndY = $this->endY;
+                }
+            }
+        }
     }
 }

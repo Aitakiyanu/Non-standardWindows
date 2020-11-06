@@ -5,7 +5,7 @@ function calculateSlopingSideHeightDifference(int $width, int $height, int $bott
     $newTriangleHeight = $triangleHeight + $seamWidth;
     $similarityСoefficient = $newTriangleHeight / $triangleHeight;
     $newHeight = $height * $similarityСoefficient;
-    $heightDifference = $newHeight - $height;
-    return $heightDifference;
+    $newWidth = $width * $similarityСoefficient;
+    return [$newHeight - $height, $newWidth - $width];
 }
 $windowSides = [];
