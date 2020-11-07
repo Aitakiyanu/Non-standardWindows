@@ -14,10 +14,11 @@
 include_once 'src/form.php';
 if (count($_POST) > 0) {
     include_once 'src/WallOpeningSide.php';
+    include_once 'src/IntersectionPoint.php';
     include_once 'src/Wall-Opening-Sides-Array.php';
     include_once 'src/intersections-calculation.php';
 }
-//if (isset($wallOpeningSides)) var_dump($wallOpeningSides);
+if (isset($intersections)) var_dump($intersections);
 /*
 if (isset($wallOpeningSides)) {
 //    echo " A    B    C<br/>";
