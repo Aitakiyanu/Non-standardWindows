@@ -13,10 +13,10 @@ class WallOpeningSide
     public int $coefficientA; //коэффициент A в функции прямой Ax+By+C=0
     public int $coefficientB; //коэффициент B в функции прямой Ax+By+C=0
     public int $coefficientC; //коэффициент C в функции прямой Ax+By+C=0
-    private $auxiliaryStartX;
-    private $auxiliaryStartY;
-    private $auxiliaryEndX;
-    private $auxiliaryEndY;
+    public $auxiliaryStartX;
+    public $auxiliaryStartY;
+    public $auxiliaryEndX;
+    public $auxiliaryEndY;
     public $newCoefficientA;
     public $newCoefficientB;
     public $newCoefficientC;
@@ -67,12 +67,12 @@ class WallOpeningSide
                     $this->auxiliaryEndY = $this->endY;
                 }
             }
-        } elseif ($this->sideWidth = 0 && $this->sideHeight <> 0) {
+        } elseif ($this->sideWidth == 0 && $this->sideHeight <> 0) {
             $this->auxiliaryStartY = $this->startY;
             $this->auxiliaryEndY = $this->endY;
             $this->auxiliaryStartX = $this->startX + ($this->sideHeight <=> 0) * $this->sideSeam;
             $this->auxiliaryEndX = $this->endX + ($this->sideHeight <=> 0) * $this->sideSeam;
-        } elseif ($this->sideHeight = 0 && $this->sideWidth <> 0) {
+        } elseif ($this->sideHeight == 0 && $this->sideWidth <> 0) {
             $this->auxiliaryStartX = $this->startX;
             $this->auxiliaryEndX = $this->endX;
             $this->auxiliaryStartY = $this->startY - ($this->sideWidth <=> 0) * $this->sideSeam;
