@@ -77,6 +77,11 @@ class WallOpeningSide
             $this->auxiliaryEndX = $this->endX;
             $this->auxiliaryStartY = $this->startY - ($this->sideWidth <=> 0) * $this->sideSeam;
             $this->auxiliaryEndY = $this->endY - ($this->sideWidth <=> 0) * $this->sideSeam;
+        } else {
+            $this->auxiliaryStartX = $this->startX; //в этом случае
+            $this->auxiliaryStartY = $this->startY; //все коэффициенты
+            $this->auxiliaryEndX = $this->endX; //равны нулю
+            $this->auxiliaryEndY = $this->endY; //новые координаты не имеют значения
         }
         $this->newCoefficientA = $this->auxiliaryStartY - $this->auxiliaryEndY;
         $this->newCoefficientB = $this->auxiliaryEndX - $this->auxiliaryStartX;
