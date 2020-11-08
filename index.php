@@ -7,6 +7,9 @@
         input[type=number]{
             width: 50px;
         }
+        fieldset{
+            width: fit-content;
+        }
     </style>
 </head>
 <body>
@@ -15,20 +18,20 @@ include_once 'src/form.php';
 if (count($_POST) > 0) {
     include_once 'src/WallOpeningSide.php';
     include_once 'src/IntersectionPoint.php';
+    include_once 'src/WindowSide.php';
     include_once 'src/Wall-Opening-Sides-Array.php';
     include_once 'src/intersections-calculation.php';
+    include_once 'src/window-sides-length-calculation.php';
+    include_once 'src/visualisation.php';
 }
-if (isset($intersections)) var_dump($intersections);
-/*
-if (isset($wallOpeningSides)) {
-//    echo " A    B    C<br/>";
-    foreach ($wallOpeningSides as $key => $value) {
-        echo $key.': '.$value->coefficientA.' => '.$value->newCoefficientA.' ||| '.$value->coefficientB.' => '.$value->newCoefficientB.' ||| '.$value->coefficientC.' => '.$value->newCoefficientC.'<br/>';
-//        var_dump($value);
-//        echo '<br/>';
+//if (isset($intersections)) var_dump($intersections);
+
+/*if (isset($wallOpeningSides)) {
+    foreach ($wallOpeningSides as $item) {
+        echo ($item->auxiliaryStartX - $item->startX).'>>>'.($item->auxiliaryStartY - $item->startY).'<br/>';
     }
-}
-*/
+}*/
+
 ?>
 </body>
 </html>

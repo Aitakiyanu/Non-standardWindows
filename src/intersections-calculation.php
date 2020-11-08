@@ -3,9 +3,9 @@ $intersections = [];
 $strLines = [];
 $i = 0;
 
-foreach ($wallOpeningSides as $key => $item) {
-    if ($item->newCoefficientC <> 0) {
-        $strLines[$i] = $key;
+foreach ($wallOpeningSides as $number => $side) {
+    if ($side->newCoefficientC <> 0) {
+        $strLines[$i] = $number;
         $i++;
     }
 }
@@ -20,6 +20,7 @@ if (count($strLines)>2) {
             $wallOpeningSides[$secondStrLine]->newCoefficientA,
             $wallOpeningSides[$secondStrLine]->newCoefficientB,
             $wallOpeningSides[$secondStrLine]->newCoefficientC);
+
     }
 } else {
     echo 'Сторон должно быть больше двух';
