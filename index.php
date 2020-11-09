@@ -16,10 +16,11 @@
 <?php
 include_once 'src/form.php';
 if (count($_POST) > 0) {
-    include_once 'src/wall-opening-sides-array.php';
-    include_once 'src/intersections-calculation.php';
-    include_once 'src/window-sides-length-calculation.php';
-    include_once 'src/visualisation.php';
+//    include_once 'src/wall-opening-sides-array.php';
+//    include_once 'src/intersections-calculation.php';
+//    include_once 'src/window-sides-length-calculation.php';
+//    include_once 'src/visualisation.php';
+var_dump($wallOpeningSides);
 }
 //if (isset($intersections)) var_dump($intersections);
 
