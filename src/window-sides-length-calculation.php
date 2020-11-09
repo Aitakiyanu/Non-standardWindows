@@ -1,5 +1,7 @@
 <?php
 
+include_once 'src/WindowSide.php';
+
 $windowSides = [];
 for ($i = 0, $size = count($intersections); $i < $size; $i++) {
     $end = $i === $size - 1 ? 0 : $i + 1;

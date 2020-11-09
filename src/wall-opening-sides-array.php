@@ -1,4 +1,7 @@
 <?php
+
+include_once 'src/WallOpeningSide.php';
+
 $wallOpeningSides = [];
 $seamSign = isset($_POST['negate_bottom_to_left_assembly_seam']) ? -1 : 1;
 $wallOpeningSides[0] = new WallOpeningSide($_POST['wall_opening_bottom_to_left'], -$_POST['wall_opening_bottom_to_left_width'], $_POST['wall_opening_bottom_to_left_height'], $seamSign * $_POST['bottom_to_left_assembly_seam'], $_POST['wall_opening_bottom_to_left_width'], 0);

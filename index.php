@@ -16,10 +16,7 @@
 <?php
 include_once 'src/form.php';
 if (count($_POST) > 0) {
-    include_once 'src/WallOpeningSide.php';
-    include_once 'src/IntersectionPoint.php';
-    include_once 'src/WindowSide.php';
-    include_once 'src/Wall-Opening-Sides-Array.php';
+    include_once 'src/wall-opening-sides-array.php';
     include_once 'src/intersections-calculation.php';
     include_once 'src/window-sides-length-calculation.php';
     include_once 'src/visualisation.php';

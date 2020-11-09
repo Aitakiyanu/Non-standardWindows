@@ -1,4 +1,7 @@
 <?php
+
+include_once 'src/IntersectionPoint.php';
+
 $intersections = [];
 $strLines = [];
 $i = 0;
@@ -20,7 +23,6 @@ if (count($strLines)>2) {
             $wallOpeningSides[$secondStrLine]->newCoefficientA,
             $wallOpeningSides[$secondStrLine]->newCoefficientB,
             $wallOpeningSides[$secondStrLine]->newCoefficientC);
-
     }
 } else {
     echo 'Сторон должно быть больше двух';
