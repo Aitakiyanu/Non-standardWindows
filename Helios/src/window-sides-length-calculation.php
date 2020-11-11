@@ -1,6 +1,7 @@
 <?php
+namespace Helios;
 
-include_once 'src/WindowSide.php';
+include_once 'WindowSide.php';
 
 $windowSides = [];
 for ($i = 1, $sides = count($intersections); $i <= $sides; $i++) {
@@ -11,5 +12,7 @@ for ($i = 1, $sides = count($intersections); $i <= $sides; $i++) {
         $intersections[$end]->intersectionPointY);
 }
 $sidesLength = 'Стороны, начиная со стороны '.($strLines[1] + 1).': '; //Проверить номер стороны
-foreach ($windowSides as $side) $sidesLength .= $side->sideLength.', ';
+foreach ($windowSides as $side) {
+    $sidesLength .= $side->sideLength . ', ';
+}
 echo substr($sidesLength, 0, -2);

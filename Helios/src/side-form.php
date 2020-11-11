@@ -1,9 +1,10 @@
 <?php //Начнем слева
+namespace Helios;
 
 if (isset($wallOpeningSides)) {
-    var_dump($sidesCount);
+    echo "Сейчас посчитаю...";
     $sidesCount = count($wallOpeningSides);
-    var_dump($sidesCount);
+    echo "Посчитал!";
 } else {
     $sidesCount = 8;
     $wallOpeningSides = [];
@@ -12,10 +13,11 @@ if (isset($wallOpeningSides)) {
 include_once 'wall-opening-sides-array.php';
 
 for ($i = 1; $i <= $sidesCount; $i++) {
-    $negateChecked = isset($_POST["negate_assembly_seam_{$i}"]) ? $_POST["negate_assembly_seam_{$i}"] : "";
+    $negateChecked = $_POST["negate_assembly_seam_{$i}"] ?? "";
     echo <<<SIDEFORM
-<fieldset>
+<fieldset id="side_form_{$i}">
     <legend>Сторона $i</legend>
+    <p id="side_{$i}" class="hidden">{$wallOpeningSides[$i]->sideLength}</p>
     <label for="wall_opening_side_length_{$i}">Длина стороны:</label>
     <input id="wall_opening_side_length_{$i}" type="number" name="wall_opening_side_length_{$i}" value="{$wallOpeningSides[$i]->sideLength}" min="0" required><br/><br/>
     <label for="wall_opening_side_width_{$i}">Ширина по горизонтали:</label>

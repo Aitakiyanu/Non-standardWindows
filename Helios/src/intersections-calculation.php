@@ -1,15 +1,18 @@
 <?php
+namespace Helios;
 
-include_once 'src/IntersectionPoint.php';
+include_once 'IntersectionPoint.php';
 
 $intersections = [];
 $strLines = [];
 $i = 1;
 
-foreach ($wallOpeningSides as $number => $side) {
-    if ($side->newCoefficientC !== 0) {
-        $strLines[$i] = (int)$number;
-        $i++;
+if (isset($wallOpeningSides)) {
+    foreach ($wallOpeningSides as $number => $side) {
+        if ($side->newCoefficientC !== 0) {
+            $strLines[$i] = (int)$number;
+            $i++;
+        }
     }
 }
 

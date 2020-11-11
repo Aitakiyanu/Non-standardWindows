@@ -1,4 +1,4 @@
-<form action="index.php" method="post">
+<form action="" method="post">
     <fieldset>
         <legend>Размеры проема</legend>
 <?php include_once 'side-form.php';?>

@@ -1,4 +1,5 @@
 <?php
+namespace Helios;
 
 class WallOpeningSide
 {
@@ -33,7 +34,7 @@ class WallOpeningSide
         $this->coefficientA = $this->startY - $this->endY;
         $this->coefficientB = $this->endX - $this->startX;
         $this->coefficientC = $this->startX * $this->endY - $this->endX * $this->startY;
-        if ($this->sideWidth <> 0 && $this->sideHeight <> 0) { //Наклонная сторона (не вертикальная и не горизонтальная)
+        if (($this->sideWidth !== 0) && ($this->sideHeight !== 0)) { //Наклонная сторона (не вертикальная и не горизонтальная)
             $differenceCoefficient = ($sideSeam * $sideLength) / ($sideWidth * $sideHeight);
             $heightDifference = $sideHeight * $differenceCoefficient;
             $widthDifference = $sideWidth * $differenceCoefficient;
@@ -49,25 +50,23 @@ class WallOpeningSide
                     $this->auxiliaryEndX = $this->endX;
                     $this->auxiliaryEndY = $this->endY - $heightDifference;
                 }
-            } else { //Конечная точка левее начальной (сторона строится справа-налево)
-                if ($this->sideHeight > 0) { //Конечная точка выше начальной (сторона строится снизу-вверх справа-налево)
-                    $this->auxiliaryStartX = $this->startX + $widthDifference;
-                    $this->auxiliaryStartY = $this->startY;
-                    $this->auxiliaryEndX = $this->endX;
-                    $this->auxiliaryEndY = $this->endY - $heightDifference;
-                } else { //Конечная точка ниже начальной (сторона строится сверху-вниз справа-налево)
-                    $this->auxiliaryStartX = $this->startX;
-                    $this->auxiliaryStartY = $this->startY - $heightDifference;
-                    $this->auxiliaryEndX = $this->endX + $widthDifference;
-                    $this->auxiliaryEndY = $this->endY;
-                }
+            } else if ($this->sideHeight > 0) { //Конечная точка выше начальной (сторона строится снизу-вверх справа-налево)
+                $this->auxiliaryStartX = $this->startX + $widthDifference;
+                $this->auxiliaryStartY = $this->startY;
+                $this->auxiliaryEndX = $this->endX;
+                $this->auxiliaryEndY = $this->endY - $heightDifference;
+            } else { //Конечная точка ниже начальной (сторона строится сверху-вниз справа-налево)
+                $this->auxiliaryStartX = $this->startX;
+                $this->auxiliaryStartY = $this->startY - $heightDifference;
+                $this->auxiliaryEndX = $this->endX + $widthDifference;
+                $this->auxiliaryEndY = $this->endY;
             }
-        } elseif ($this->sideWidth == 0 && $this->sideHeight <> 0) { //Вертикальная сторона
+        } elseif (($this->sideWidth === 0) && ($this->sideHeight !== 0)) { //Вертикальная сторона
             $this->auxiliaryStartY = $this->startY;
             $this->auxiliaryEndY = $this->endY;
             $this->auxiliaryStartX = $this->startX + ($this->sideHeight <=> 0) * $this->sideSeam;
             $this->auxiliaryEndX = $this->endX + ($this->sideHeight <=> 0) * $this->sideSeam;
-        } elseif ($this->sideHeight == 0 && $this->sideWidth <> 0) { //Горизонтальная сторона
+        } elseif (($this->sideHeight === 0) && ($this->sideWidth !== 0)) { //Горизонтальная сторона
             $this->auxiliaryStartX = $this->startX;
             $this->auxiliaryEndX = $this->endX;
             $this->auxiliaryStartY = $this->startY - ($this->sideWidth <=> 0) * $this->sideSeam;
