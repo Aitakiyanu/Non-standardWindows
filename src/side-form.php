@@ -1,19 +1,12 @@
-<?php //Начнем с первой стороны, которая идет вверх и не влево
-$wallOpeningSides = [];
-for ($i = 0, $size = count($wallOpeningSides) >= 3 ? count($wallOpeningSides) : 3; $i < $size; $i++) {
-    include_once 'src/WallOpeningSide.php';
-    if ($_POST) {
-        $seamSign = isset($_POST["negate_assembly_seam_{$i}"]) ? -1 : 1;
-        $prvSide = ($i == 0 ? $size : $i) - 1;
-        $prvSideX = isset($wallOpeningSides[$prvSide]) ? $wallOpeningSides[$prvSide]->endX : 0;
-        $prvSideY = isset($wallOpeningSides[$prvSide]) ? $wallOpeningSides[$prvSide]->endY : 0;
-        $wallOpeningSides[$i] = new WallOpeningSide($_POST["wall_opening_side_length_{$i}"],
-            $_POST["wall_opening_side_width_{$i}"],
-            $_POST["wall_opening_side_height_{$i}"],
-            $seamSign * $_POST["side_assembly_seam_{$i}"],
-            $prvSideX,
-            $prvSideY);
-    }
+<?php //Начнем слева
+
+if (isset($wallOpeningSides)) {
+    $sidesCount = count($wallOpeningSides);
+} else {
+    $sidesCount = 8;
+    $wallOpeningSides = [];
+}
+for ($i = 1; $i <= $sidesCount; $i++) {
 
     echo <<<SIDEFORM
 <fieldset>
