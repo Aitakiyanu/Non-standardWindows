@@ -1,0 +1,6 @@
+input[type=number]{
+    width: 50px;
+}
+fieldset{
+    width: fit-content;
+}

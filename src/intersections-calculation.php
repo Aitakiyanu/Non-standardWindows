@@ -4,19 +4,19 @@ include_once 'src/IntersectionPoint.php';
 
 $intersections = [];
 $strLines = [];
-$i = 0;
+$i = 1;
 
 foreach ($wallOpeningSides as $number => $side) {
-    if ($side->newCoefficientC <> 0) {
-        $strLines[$i] = $number;
+    if ($side->newCoefficientC !== 0) {
+        $strLines[$i] = (int)$number;
         $i++;
     }
 }
 
 if (count($strLines)>2) {
-    for ($i = 0, $size = count($strLines); $i < $size; $i++) {
+    for ($i = 1, $points = count($strLines); $i <= $points; $i++) {
         $firstStrLine = $strLines[$i];
-        $secondStrLine = ($i == $size - 1) ? $strLines[0] : $strLines[$i + 1];
+        $secondStrLine = ($i === $points) ? $strLines[1] : $strLines[$i + 1];
         $intersections[$i] = new IntersectionPoint($wallOpeningSides[$firstStrLine]->newCoefficientA,
             $wallOpeningSides[$firstStrLine]->newCoefficientB,
             $wallOpeningSides[$firstStrLine]->newCoefficientC,

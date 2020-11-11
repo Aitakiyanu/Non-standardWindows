@@ -1,7 +1,7 @@
 <form action="index.php" method="post">
     <fieldset>
         <legend>Размеры проема</legend>
-<?php include_once 'src/side-form.php';?>
+<?php include_once 'side-form.php';?>
         <fieldset>
             <legend>Отправить значения</legend>
             <input type="submit" value="ОК">
