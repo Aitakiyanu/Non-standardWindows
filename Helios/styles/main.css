@@ -1,9 +1,12 @@
-input[type=number]{
+input[type=number] {
     width: 50px;
 }
-fieldset{
+fieldset {
     width: fit-content;
 }
-.hidden{
+.hidden {
     display: none;
+}
+.side_form p {
+    margin: 0;
 }
