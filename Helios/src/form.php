@@ -6,6 +6,6 @@
             <legend>Отправить значения</legend>
             <input type="submit" value="ОК">
         </fieldset>
+        <button id="add_side">Добавить сторону</button>
     </fieldset>
 </form>
-

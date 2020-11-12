@@ -10,3 +10,7 @@ for (let i = 0; i < sidesCount; i++) {
         this.parentNode.querySelectorAll('br').forEach(br => br.classList.toggle('hidden'));
     })
 }
+
+document.getElementById('add_side').addEventListener('click', function () {
+    alert('click!');
+})
