@@ -11,6 +11,7 @@ for (let i = 0; i < sidesCount; i++) {
     })
 }
 
-document.getElementById('add_side').addEventListener('click', function () {
+document.getElementById('add_side').addEventListener('click', function (event) {
     alert('click!');
+    event.preventDefault();
 })
