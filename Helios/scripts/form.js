@@ -16,8 +16,11 @@ entForm.addEventListener('click', function (event) {
     if (event.target.dataset.type === 'legend') {
         let itemsToHide = event.target.parentNode.querySelectorAll('*:not([type="button"])');
         let itemsCount = itemsToHide.length;
+        console.log(itemsToHide);
         for (let i = 0; i < itemsCount; i++) {
-            itemsToHide[i].hidden = !itemsToHide[i].hidden;
+            if (!itemsToHide[i].classList.contains('side_form_legend')) {
+                itemsToHide[i].hidden = !itemsToHide[i].hidden;
+            }
         }
     }
 })
