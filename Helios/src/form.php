@@ -4,7 +4,7 @@
 <?php include_once 'side-form.php';?>
         <fieldset>
             <legend>Отправить значения</legend>
-            <input type="submit" value="ОК">
+            <input id="sendvalues" type="submit" value="ОК">
         </fieldset>
     </fieldset>
 </form>

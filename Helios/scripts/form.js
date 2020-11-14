@@ -1,15 +1,17 @@
 'use strict';
 
-let sideForms = document.getElementsByClassName('side_form_legend');
+let sideForms = document.getElementsByClassName('side_form');
 let sidesCount = sideForms.length;
-/*for (let i = 0; i < sidesCount; i++) {
-    sideForms[i].addEventListener('click', function () {
-        this.parentNode.querySelectorAll('input').forEach(inp => inp.classList.toggle('hidden'));
-        this.parentNode.querySelectorAll('label').forEach(lbl => lbl.classList.toggle('hidden'));
-        this.parentNode.querySelectorAll('p').forEach(pgf => pgf.classList.toggle('hidden'));
-        this.parentNode.querySelectorAll('br').forEach(br => br.classList.toggle('hidden'));
-    })
-}*/
+if (sidesCount === 0) {
+    let addButton = document.createElement('input');
+    addButton.type = 'button';
+    addButton.id = 'add_side_0';
+    addButton.value = 'Добавить сторону';
+    addButton.dataset.type = 'addside';
+    document.getElementById('sendvalues').after(addButton);
+}
+
+
 
 let entForm = document.getElementById('entire_form');
 entForm.addEventListener('click', function (event) {
@@ -21,6 +23,19 @@ entForm.addEventListener('click', function (event) {
             if (!itemsToHide[i].classList.contains('side_form_legend')) {
                 itemsToHide[i].hidden = !itemsToHide[i].hidden;
             }
+        }
+    } else if (event.target.dataset.type === 'addside') {
+        let thisSideNumber = event.target.parentNode.id.slice(event.target.parentNode.id.lastIndexOf('_') + 1);
+        let formtags = event.target.parentNode.querySelectorAll('*');
+        let formtagsCount = formtags.length;
+        let numberToAdd = thisSideNumber + 1;
+        for (let i = numberToAdd; i < formtagsCount; i++) {
+
+        }
+    } else if (event.target.dataset.type === 'removeside') {
+        event.target.parentElement.remove();
+        if (event.target.parentElement.nextElementSibling.classList.contains('side_form')) {
+            alert('!!!');
         }
     }
 })
