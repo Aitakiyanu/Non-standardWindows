@@ -10,3 +10,6 @@ fieldset {
 .side_form p {
     margin: 0;
 }
+.side_form:hover {
+    cursor: pointer;
+}
