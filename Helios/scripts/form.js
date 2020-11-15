@@ -18,7 +18,7 @@ let entForm = document.getElementById('entire_form');
 entForm.addEventListener('click', function (event) {
     //Если клик по названию стороны - скрываем-показываем поля ввода, показываем-скрываем длину стороны
     if (event.target.dataset.type === 'legend') {
-        let itemsToHide = event.target.parentNode.querySelectorAll('*:not([type="button"])');
+        let itemsToHide = event.target.parentNode.querySelectorAll('*');
         let itemsCount = itemsToHide.length;
         for (let i = 0; i < itemsCount; i++) {
             if (!itemsToHide[i].classList.contains('side_form_legend')) {
@@ -50,12 +50,17 @@ entForm.addEventListener('click', function (event) {
                 if (formtags[i].hasAttribute('for')) {
                     formtags[i].setAttribute('for', formtags[i].getAttribute('for').slice(0, formtags[i].getAttribute('for').lastIndexOf('_') + 1) + nextSide);
                 }
+                if (formtags[i].classList.contains('side_form_legend')) {
+                    formtags[i].innerHTML = formtags[i].innerHTML.slice(0, formtags[i].innerHTML.lastIndexOf(' ')) + ' ' + nextSide;
+                }
             }
         }
         event.target.parentElement.before(newSide);
+        sideForms = document.querySelectorAll('.side_form');
+        sidesCount++;
     } else if (event.target.dataset.type === 'removeside') {
         event.target.parentElement.remove();
-        if (event.target.parentElement.nextElementSibling.classList.contains('side_form')) {
+        if (event.target.parentElement.nextSibling.classList.contains('side_form')) {
             alert('!!!');
         }
     }

@@ -28,8 +28,8 @@ for ($i = 1; $i <= $sidesCount; $i++) {
     <input id="side_assembly_seam_{$i}" type="number" name="side_assembly_seam_{$i}" value="{$wallOpeningSides[$i]->sideSeam}" min="0" required>
     <label for="negate_assembly_seam_{$i}">Или это заход за четверть?</label>
     <input id="negate_assembly_seam_{$i}" type="checkbox" name="negate_assembly_seam_{$i}" value="checked" {$negateChecked}>
-    <input type="button" id="add_side_{$i}" value="Добавить сторону" data-type="addside"/>
-    <input type="button" id="remove_side_{$i}" value="Убрать сторону" data-type="removeside"/>
+    <input type="button" id="add_side_{$i}" value="Добавить сторону" data-type="addside" hidden/>
+    <input type="button" id="remove_side_{$i}" value="Убрать сторону" data-type="removeside" hidden/>
 
 </fieldset>
 SIDEFORM;
