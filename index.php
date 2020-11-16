@@ -7,9 +7,6 @@
 </head>
 <body>
 <?php
-if (isset($wallOpeningSides)) {
-    echo 'Порядок!!!';
-}
 include_once 'Helios/src/form.php';
 if (count($_POST) > 0) {
     include_once 'Helios/src/intersections-calculation.php';

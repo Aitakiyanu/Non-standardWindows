@@ -18,7 +18,7 @@ let entForm = document.getElementById('entire_form');
 entForm.addEventListener('click', function (event) {
     //Если клик по названию стороны - скрываем-показываем поля ввода, показываем-скрываем длину стороны
     if (event.target.dataset.type === 'legend') {
-        let itemsToHide = event.target.parentNode.querySelectorAll('*');
+        let itemsToHide = event.target.parentNode.querySelectorAll('*:not([type="button"])');
         let itemsCount = itemsToHide.length;
         for (let i = 0; i < itemsCount; i++) {
             if (!itemsToHide[i].classList.contains('side_form_legend')) {
@@ -59,9 +59,9 @@ entForm.addEventListener('click', function (event) {
         sideForms = document.querySelectorAll('.side_form');
         sidesCount++;
     } else if (event.target.dataset.type === 'removeside') {
-        event.target.parentElement.remove();
         if (event.target.parentElement.nextSibling.classList.contains('side_form')) {
             alert('!!!');
         }
+        event.target.parentElement.remove();
     }
 })
