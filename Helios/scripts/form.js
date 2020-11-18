@@ -50,7 +50,12 @@ function addSideForm (sideNumber, currentSide) {
         <label for="negate_assembly_seam_${newSideNumber}">за четверть(-)</label>
         <input id="negate_assembly_seam_${newSideNumber}" type="checkbox" name="negate_assembly_seam_${newSideNumber}" value="checked">
     `;
-    currentSide.after(newSideForm);
+    if (sideNumber === -1) {
+        currentSide.before(newSideForm);
+        currentSide.querySelector('input[type="button"]').hidden = true;
+    } else {
+        currentSide.after(newSideForm);
+    }
 }
 
 function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
@@ -60,6 +65,7 @@ function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
         for (let side = currentSideCollectionIndex + 1; side < sidesCount; side++) {
             //Следующий номер для атрибутов элемента равен текущему номеру в аттрибуте +1, то есть номеру индекса +2
             let nextSide = side + 2;
+            //Переименовываем (перенумеровываем) идентификатор fieldset
             if (sideForms[side].hasAttribute('id')) {
                 sideForms[side].id = sideForms[side].id.slice(0, sideForms[side].id.lastIndexOf('_') + 1) + nextSide;
             }
@@ -84,11 +90,34 @@ function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
             }
         }
     } else if (addOrRemove === -1) {
+        for (let side = currentSideCollectionIndex +1; side < sidesCount; side++) {
+            //Меняем номер fieldset id на номер индекса, то есть уменьшаем на 1
+            if (sideForms[side].hasAttribute('id')) {
+                sideForms[side].id = sideForms[side].id.slice(0, sideForms[side].id.lastIndexOf('_')+1) + side;
+            }
+            //Получаем все элементы внутри формы
+            let formtags = sideForms[side].querySelectorAll('*');
+            //Вспомогательная переменная с количеством элементов для цикла
+            let formtagsCount = formtags.length;
+            //Изменяем номер в атрибутах всех сторон после текущей, если она не последняя
+            for (let i = 0; i < formtagsCount; i++) {
+                if (formtags[i].hasAttribute('id')) {
+                    formtags[i].id = formtags[i].id.slice(0, formtags[i].id.lastIndexOf('_') + 1) + side;
+                }
+                if (formtags[i].hasAttribute('name')) {
+                    formtags[i].setAttribute('name', formtags[i].getAttribute('name').slice(0, formtags[i].getAttribute('name').lastIndexOf('_') + 1) + side);
+                }
+                if (formtags[i].hasAttribute('for')) {
+                    formtags[i].setAttribute('for', formtags[i].getAttribute('for').slice(0, formtags[i].getAttribute('for').lastIndexOf('_') + 1) + side);
+                }
+                if (formtags[i].classList.contains('side_form_legend')) {
+                    formtags[i].innerHTML = formtags[i].innerHTML.slice(0, formtags[i].innerHTML.lastIndexOf(' ')) + ' ' + side;
+                }
+            }
 
+        }
     }
 }
-
-
 
 let entForm = document.getElementById('entire_form');
 //Вешаем eventListener на всю форму
@@ -109,9 +138,10 @@ entForm.addEventListener('click', function (event) {
         renumberSideForms(1, currentSideCollectionIndex);
         addSideForm(currentSideCollectionIndex, currentSide);
     } else if (event.target.dataset.type === 'removeside') {
-        if (event.target.parentElement.nextSibling.classList.contains('side_form')) {
-            alert('!!!');
-        }
-        event.target.parentElement.remove();
+        let currentSide = event.target.parentElement;
+        //Получаем номер стороны из id. Для перевода в индекс коллекции считаем -1.
+        let currentSideCollectionIndex = currentSide.id.slice(currentSide.id.lastIndexOf('_') + 1) - 1;
+        renumberSideForms(-1, currentSideCollectionIndex);
+        currentSide.remove();
     }
 })

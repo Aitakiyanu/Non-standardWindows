@@ -7,11 +7,14 @@ $wallOpeningSides = [];
 $sidesCount = 0;
 
 if (count($_POST) > 0) {
-    echo count($_POST);
-    //Считаем количество сторон. У каждой стороны должна быть кнопка удаления
-    while (isset($_POST["remove_side_{$sidesCount}"])) {
+    $sideToCount = 1;
+
+    //Считаем количество сторон
+    while (isset($_POST["wall_opening_side_length_{$sideToCount}"])) {
         $sidesCount++;
+        $sideToCount++;
     }
+    echo $sidesCount;
     //Заполняем массив сторон проема объектами - сторнами
     for ($i = 1; $i <= $sidesCount; $i++) {
         $seamSign = isset($_POST["negate_assembly_seam_{$i}"]) ? -1 : 1; //Знак для вычисления монтажного шва либо захода за четверть
