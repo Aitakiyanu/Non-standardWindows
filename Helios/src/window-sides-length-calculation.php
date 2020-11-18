@@ -15,7 +15,9 @@ if (!empty($intersections)) {
 }
 if (isset($strLinesCount)) {
     if ($strLinesCount > 1) {
-        $sidesLength = 'Стороны, начиная со стороны '.($strLines[1] + 1).': ';
+        if (!empty($strLines)) {
+            $sidesLength = 'Стороны, начиная со стороны '.($strLines[1] + 1).': ';
+        }
     }
 } //Проверить номер стороны
 foreach ($windowSides as $side) {

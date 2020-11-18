@@ -20,7 +20,7 @@ if (isset($wallOpeningSides)) {
 
 if ($strLinesCount>2) {
     for ($pointNumber = 0, $lastPointNumber = $strLinesCount - 1; $pointNumber < $strLinesCount; $pointNumber++) {
-        $firstStrLine = $strLines[$i];
+        $firstStrLine = $strLines[$pointNumber];
         $secondStrLine = ($pointNumber === $lastPointNumber) ? $strLines[0] : $strLines[$pointNumber + 1];
         if (!empty($wallOpeningSides)) {
             $intersections[$pointNumber] = new IntersectionPoint($wallOpeningSides[$firstStrLine]->newCoefficientA,
