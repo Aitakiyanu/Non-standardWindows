@@ -11,31 +11,59 @@ if (sidesCount === 0) {
     document.getElementById('sendvalues').after(addButton);
 }
 
+function addSideForm (sideNumber, currentSide) {
+    let newSideForm = document.createElement('fieldset');
+    let newSideNumber = sideNumber + 2; //Новая сторона добавляется после текущей, ее номер - номер индекса + 1 к индексу и + 1 к текущему номеру
+    newSideForm.id = `side_form_${newSideNumber}`;
+    newSideForm.className = 'side_form';
+    newSideForm.innerHTML = `
+        <legend class="side_form_legend" data-type="legend">Сторона ${newSideNumber}</legend>
+        <span id="side_${newSideNumber}" hidden>0</span>
+        
+        <label for="wall_opening_side_length_${newSideNumber}">Длина стороны:</label>
+        <input id="wall_opening_side_length_${newSideNumber}" type="number" name="wall_opening_side_length_${newSideNumber}" value="0" min="0" required>
+         
+        <input type="button" id="add_side_${newSideNumber}" value="Добавить после" data-type="addside"/>
+        <input type="button" id="remove_side_${newSideNumber}" value="Убрать сторону" data-type="removeside"/><br/>
+       
+        <label for="wall_opening_side_width_${newSideNumber}">Ширина по горизонтали:</label>
+        <input type="number" id="wall_opening_side_width_${newSideNumber}" name="wall_opening_side_width_${newSideNumber}" value="0" min="0" required>
+        
+        <label for="right_direction_${newSideNumber}">вправо(+)</label>
+        <input id="right_direction_${newSideNumber}" type="radio" name="left_or_right_${newSideNumber}" value="1" required checked>
+        
+        <label for="left_direction_${newSideNumber}">влево(-)</label>
+        <input id="left_direction_${newSideNumber}" type="radio" name="left_or_right_${newSideNumber}" value="-1" required><br/>
+        
+        <label for="wall_opening_side_height_${newSideNumber}">Высота по вертикали:</label>
+        <input type="number" id="wall_opening_side_height_${newSideNumber}" name="wall_opening_side_height_${newSideNumber}" value="0" min="0" required>
+        
+        <label for="up_direction_${newSideNumber}">вверх(+)</label>
+        <input id="up_direction_${newSideNumber}" type="radio" name="up_or_down_${newSideNumber}" value="1" required checked>
+        
+        <label for="down_direction_${newSideNumber}">вниз(-)</label>
+        <input id="down_direction_${newSideNumber}" type="radio" name="up_or_down_${newSideNumber}" value="-1" required><br/>
+        
+        <label for="side_assembly_seam_${newSideNumber}">Шов:</label>
+        <input id="side_assembly_seam_${newSideNumber}" type="number" name="side_assembly_seam_${newSideNumber}" value="20" min="0" required>
+        
+        <label for="negate_assembly_seam_${newSideNumber}">за четверть(-)</label>
+        <input id="negate_assembly_seam_${newSideNumber}" type="checkbox" name="negate_assembly_seam_${newSideNumber}" value="checked">
+    `;
+    currentSide.after(newSideForm);
+}
 
-
-let entForm = document.getElementById('entire_form');
-//Вешаем eventListener на всю форму
-entForm.addEventListener('click', function (event) {
-    //Если клик по названию стороны - скрываем-показываем поля ввода, показываем-скрываем длину стороны
-    if (event.target.dataset.type === 'legend') {
-        let itemsToHide = event.target.parentNode.querySelectorAll('*:not([type="button"])');
-        let itemsCount = itemsToHide.length;
-        for (let i = 0; i < itemsCount; i++) {
-            if (!itemsToHide[i].classList.contains('side_form_legend')) {
-                itemsToHide[i].hidden = !itemsToHide[i].hidden;
-            }
-        }
-    } else if (event.target.dataset.type === 'addside') { //Добавить сторону
-        let newSide = event.target.parentNode.cloneNode(true);
-        //Получаем номер стороны,в которой произошел клик, в коллекции сторон (поэтому -1)
-        let thisSideCollectionIndex = event.target.parentNode.id.slice(event.target.parentNode.id.lastIndexOf('_') + 1) - 1;
-        for (let side = thisSideCollectionIndex; side < sidesCount; side++) {
+function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
+    let sideForms = document.querySelectorAll('.side_form');
+    let sidesCount = sideForms.length;
+    if (addOrRemove === 1) {
+        for (let side = currentSideCollectionIndex + 1; side < sidesCount; side++) {
             //Следующий номер для атрибутов элемента равен текущему номеру в аттрибуте +1, то есть номеру индекса +2
             let nextSide = side + 2;
             if (sideForms[side].hasAttribute('id')) {
                 sideForms[side].id = sideForms[side].id.slice(0, sideForms[side].id.lastIndexOf('_') + 1) + nextSide;
             }
-            //Получаем все элементы внутри родительского кнопки, в которой произошел клик (добавить проверку нулевого количества сторон)
+            //Получаем все элементы внутри формы
             let formtags = sideForms[side].querySelectorAll('*');
             //Вспомогательная переменная с количеством элементов для цикла
             let formtagsCount = formtags.length;
@@ -55,9 +83,31 @@ entForm.addEventListener('click', function (event) {
                 }
             }
         }
-        event.target.parentElement.before(newSide);
-        sideForms = document.querySelectorAll('.side_form');
-        sidesCount++;
+    } else if (addOrRemove === -1) {
+
+    }
+}
+
+
+
+let entForm = document.getElementById('entire_form');
+//Вешаем eventListener на всю форму
+entForm.addEventListener('click', function (event) {
+    //Если клик по названию стороны - скрываем-показываем поля ввода, показываем-скрываем длину стороны
+    if (event.target.dataset.type === 'legend') {
+        let itemsToHide = event.target.parentNode.querySelectorAll('*:not([type="button"])');
+        let itemsCount = itemsToHide.length;
+        for (let i = 0; i < itemsCount; i++) {
+            if (!itemsToHide[i].classList.contains('side_form_legend')) {
+                itemsToHide[i].hidden = !itemsToHide[i].hidden;
+            }
+        }
+    } else if (event.target.dataset.type === 'addside') { //Добавить сторону
+        let currentSide = event.target.parentElement;
+        //Получаем номер стороны из id. Для перевода в индекс коллекции считаем -1.
+        let currentSideCollectionIndex = currentSide.id.slice(currentSide.id.lastIndexOf('_') + 1) - 1;
+        renumberSideForms(1, currentSideCollectionIndex);
+        addSideForm(currentSideCollectionIndex, currentSide);
     } else if (event.target.dataset.type === 'removeside') {
         if (event.target.parentElement.nextSibling.classList.contains('side_form')) {
             alert('!!!');

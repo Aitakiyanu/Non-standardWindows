@@ -1,10 +1,14 @@
 <?php //Начнем слева
 namespace Helios;
 
-    $sidesCount = 8;
-    $wallOpeningSides = [];
 
 include_once 'wall-opening-sides-array.php';
+
+if (isset($sidesCount)) {
+    echo $sidesCount;
+} else {
+    $sidesCount = 8;
+}
 
 for ($i = 1; $i <= $sidesCount; $i++) {
     $negateChecked = $_POST["negate_assembly_seam_{$i}"] ?? "";
