@@ -3,29 +3,33 @@ namespace Helios;
 
 include_once 'IntersectionPoint.php';
 
-$intersections = [];
-$strLines = [];
-$i = 1;
+$intersections = []; //Массив точек пересечения
+$strLines = []; //Вспомогательный массив номеров сторон, не равных нулю (заменить на ограничение ввода)
 
+$strLinesCount = 0; //Начальный индекс для заполнения массива номеров ненулевых сторон
 if (isset($wallOpeningSides)) {
     foreach ($wallOpeningSides as $number => $side) {
         if ($side->newCoefficientC !== 0) {
-            $strLines[$i] = (int)$number;
-            $i++;
+            $strLines[$strLinesCount] = (int)$number;
+            $strLinesCount++;
         }
     }
 }
 
-if (count($strLines)>2) {
-    for ($i = 1, $points = count($strLines); $i <= $points; $i++) {
+//Заполняем массив точек пересечения, исключая стороны нулевой длины, если сторон не меньше трех (треугольник)
+
+if ($strLinesCount>2) {
+    for ($pointNumber = 0, $lastPointNumber = $strLinesCount - 1; $pointNumber < $strLinesCount; $pointNumber++) {
         $firstStrLine = $strLines[$i];
-        $secondStrLine = ($i === $points) ? $strLines[1] : $strLines[$i + 1];
-        $intersections[$i] = new IntersectionPoint($wallOpeningSides[$firstStrLine]->newCoefficientA,
-            $wallOpeningSides[$firstStrLine]->newCoefficientB,
-            $wallOpeningSides[$firstStrLine]->newCoefficientC,
-            $wallOpeningSides[$secondStrLine]->newCoefficientA,
-            $wallOpeningSides[$secondStrLine]->newCoefficientB,
-            $wallOpeningSides[$secondStrLine]->newCoefficientC);
+        $secondStrLine = ($pointNumber === $lastPointNumber) ? $strLines[0] : $strLines[$pointNumber + 1];
+        if (!empty($wallOpeningSides)) {
+            $intersections[$pointNumber] = new IntersectionPoint($wallOpeningSides[$firstStrLine]->newCoefficientA,
+                $wallOpeningSides[$firstStrLine]->newCoefficientB,
+                $wallOpeningSides[$firstStrLine]->newCoefficientC,
+                $wallOpeningSides[$secondStrLine]->newCoefficientA,
+                $wallOpeningSides[$secondStrLine]->newCoefficientB,
+                $wallOpeningSides[$secondStrLine]->newCoefficientC);
+        }
     }
 } else {
     echo 'Сторон должно быть больше двух';

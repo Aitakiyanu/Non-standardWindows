@@ -24,18 +24,20 @@ if (isset($wallOpeningSides)) {
         }
     }
 }
-foreach ($intersections as $point) {
-    if ($point->intersectionPointX > $viewBoxWidth) {
-        $viewBoxWidth = $point->intersectionPointX;
-    }
-    if ($point->intersectionPointY > $viewBoxHeight) {
-        $viewBoxHeight = $point->intersectionPointY;
-    }
-    if ($point->intersectionPointX < $viewBoxMinX) {
-        $viewBoxMinX = $point->intersectionPointX;
-    }
-    if ($point->intersectionPointY < $minY) {
-        $minY = $point->intersectionPointY;
+if (!empty($intersections)) {
+    foreach ($intersections as $point) {
+        if ($point->intersectionPointX > $viewBoxWidth) {
+            $viewBoxWidth = $point->intersectionPointX;
+        }
+        if ($point->intersectionPointY > $viewBoxHeight) {
+            $viewBoxHeight = $point->intersectionPointY;
+        }
+        if ($point->intersectionPointX < $viewBoxMinX) {
+            $viewBoxMinX = $point->intersectionPointX;
+        }
+        if ($point->intersectionPointY < $minY) {
+            $minY = $point->intersectionPointY;
+        }
     }
 }
 echo '<br/>';
@@ -56,8 +58,10 @@ if (isset($wallOpeningSides)) {
     }
 }
 $wallOpeningPoints = substr($wallOpeningPoints, 0, -1);
-foreach ($intersections as $point) {
-    $windowPoints .= (int)round($point->intersectionPointX) . ',' . (int)round($viewBoxHeight + $minY - $point->intersectionPointY) . ' ';
+if (!empty($intersections)) {
+    foreach ($intersections as $point) {
+        $windowPoints .= (int)round($point->intersectionPointX) . ',' . (int)round($viewBoxHeight + $minY - $point->intersectionPointY) . ' ';
+    }
 }
 $windowPoints = substr($windowPoints, 0, -1);
 
