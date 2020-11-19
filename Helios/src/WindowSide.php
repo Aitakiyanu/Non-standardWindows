@@ -3,9 +3,9 @@ namespace Helios;
 
 class WindowSide
 {
-    public float $sideWidth;
-    public float $sideHeight;
-    public int $sideLength;
+    public $sideWidth;
+    public $sideHeight;
+    public $sideLength;
     public function __construct($startX, $startY, $endX, $endY)
     {
         $this->sideWidth = $endX - $startX;

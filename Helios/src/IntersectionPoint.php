@@ -3,8 +3,8 @@ namespace Helios;
 
 class IntersectionPoint
 {
-    public float $intersectionPointX;
-    public float $intersectionPointY;
+    public $intersectionPointX;
+    public $intersectionPointY;
     public function __construct($coefficientA1, $coefficientB1, $coefficientC1, $coefficientA2, $coefficientB2, $coefficientC2)
     {
         if ($coefficientA1 === 0) { //Первая прямая - горизонтальная (A = y1 - y2)

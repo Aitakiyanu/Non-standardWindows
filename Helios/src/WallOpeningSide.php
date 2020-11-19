@@ -3,17 +3,17 @@ namespace Helios;
 
 class WallOpeningSide
 {
-    public int $sideLength;
-    public int $sideWidth;
-    public int $sideHeight;
-    public int $sideSeam;
-    public int $startX;
-    public int $startY;
-    public int $endX;
-    public int $endY;
-    public int $coefficientA; //коэффициент A в функции прямой Ax+By+C=0
-    public int $coefficientB; //коэффициент B в функции прямой Ax+By+C=0
-    public int $coefficientC; //коэффициент C в функции прямой Ax+By+C=0
+    public $sideLength;
+    public $sideWidth;
+    public $sideHeight;
+    public $sideSeam;
+    public $startX;
+    public $startY;
+    public $endX;
+    public $endY;
+    public $coefficientA; //коэффициент A в функции прямой Ax+By+C=0
+    public $coefficientB; //коэффициент B в функции прямой Ax+By+C=0
+    public $coefficientC; //коэффициент C в функции прямой Ax+By+C=0
     public $auxiliaryStartX;
     public $auxiliaryStartY;
     public $auxiliaryEndX;

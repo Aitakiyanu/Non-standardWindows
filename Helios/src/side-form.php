@@ -11,7 +11,7 @@ if (count($_POST) > 0) {
 
 if (isset($sidesCount)) {
     for ($i = 1; $i <= $sidesCount; $i++) {
-
+        $windowSideLength = 0;
         if (isset($windowSides)) {
             $windowSideLength = $windowSides[$i-1]->sideLength;
         }
