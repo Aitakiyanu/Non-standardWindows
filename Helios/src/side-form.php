@@ -3,9 +3,9 @@ namespace Helios;
 
 include_once 'wall-opening-sides-array.php';
 if (count($_POST) > 0) {
-    include_once 'Helios/src/intersections-calculation.php';
-    include_once 'Helios/src/window-sides-length-calculation.php';
-    include_once 'Helios/src/visualisation.php';
+    include_once 'intersections-calculation.php';
+    include_once 'window-sides-length-calculation.php';
+    include_once 'visualisation.php';
 }
 
 
