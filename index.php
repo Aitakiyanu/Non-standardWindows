@@ -8,11 +8,6 @@
 <body>
 <?php
 include_once 'Helios/src/form.php';
-if (count($_POST) > 0) {
-    include_once 'Helios/src/intersections-calculation.php';
-    include_once 'Helios/src/window-sides-length-calculation.php';
-    include_once 'Helios/src/visualisation.php';
-}
 ?>
 <script src="Helios/scripts/form.js"></script>
 </body>

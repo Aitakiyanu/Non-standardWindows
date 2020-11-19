@@ -4,9 +4,7 @@ input[type=number] {
 fieldset {
     width: fit-content;
 }
-.hidden {
-    display: none;
-}
+
 .side_form p {
     margin: 0;
 }

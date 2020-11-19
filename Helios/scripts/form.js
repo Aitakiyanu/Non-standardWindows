@@ -21,13 +21,13 @@ function addSideForm (sideNumber, currentSide) {
         <span id="side_${newSideNumber}" hidden>0</span>
         
         <label for="wall_opening_side_length_${newSideNumber}">Длина стороны:</label>
-        <input id="wall_opening_side_length_${newSideNumber}" type="number" name="wall_opening_side_length_${newSideNumber}" value="0" min="0" required>
+        <input id="wall_opening_side_length_${newSideNumber}" type="number" name="wall_opening_side_length_${newSideNumber}" value="0" min="0" required class="side_dimension">
          
         <input type="button" id="add_side_${newSideNumber}" value="Добавить после" data-type="addside"/>
         <input type="button" id="remove_side_${newSideNumber}" value="Убрать сторону" data-type="removeside"/><br/>
        
         <label for="wall_opening_side_width_${newSideNumber}">Ширина по горизонтали:</label>
-        <input type="number" id="wall_opening_side_width_${newSideNumber}" name="wall_opening_side_width_${newSideNumber}" value="0" min="0" required>
+        <input type="number" id="wall_opening_side_width_${newSideNumber}" name="wall_opening_side_width_${newSideNumber}" value="0" min="0" required class="side_dimension">
         
         <label for="right_direction_${newSideNumber}">вправо(+)</label>
         <input id="right_direction_${newSideNumber}" type="radio" name="left_or_right_${newSideNumber}" value="1" required checked>
@@ -36,7 +36,7 @@ function addSideForm (sideNumber, currentSide) {
         <input id="left_direction_${newSideNumber}" type="radio" name="left_or_right_${newSideNumber}" value="-1" required><br/>
         
         <label for="wall_opening_side_height_${newSideNumber}">Высота по вертикали:</label>
-        <input type="number" id="wall_opening_side_height_${newSideNumber}" name="wall_opening_side_height_${newSideNumber}" value="0" min="0" required>
+        <input type="number" id="wall_opening_side_height_${newSideNumber}" name="wall_opening_side_height_${newSideNumber}" value="0" min="0" required class="side_dimension">
         
         <label for="up_direction_${newSideNumber}">вверх(+)</label>
         <input id="up_direction_${newSideNumber}" type="radio" name="up_or_down_${newSideNumber}" value="1" required checked>
@@ -145,3 +145,6 @@ entForm.addEventListener('click', function (event) {
         currentSide.remove();
     }
 })
+
+let sidesDimensions = entForm.querySelectorAll('.side_dimension');
+console.log(sidesDimensions.length);

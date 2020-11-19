@@ -49,8 +49,13 @@ $viewBoxWidth += (10 - $viewBoxMinX);
 $viewBoxHeight += (10 - $minY);
 //Размер svg внутри окна пропорционально внутренним координатам
 $svgViewPortSizesRatio = $viewBoxHeight / $viewBoxWidth;
-$svgWidth = 500;
-$svgHeight = (int)round($svgWidth * $svgViewPortSizesRatio);
+if ($svgViewPortSizesRatio < 1) {
+    $svgWidth = 500;
+    $svgHeight = (int)round($svgWidth * $svgViewPortSizesRatio);
+} else {
+    $svgHeight = 500;
+    $svgWidth = (int)round($svgHeight / $svgViewPortSizesRatio);
+}
 
 if (isset($wallOpeningSides)) {
     foreach ($wallOpeningSides as $side) {
@@ -58,6 +63,7 @@ if (isset($wallOpeningSides)) {
     }
 }
 $wallOpeningPoints = substr($wallOpeningPoints, 0, -1);
+
 if (!empty($intersections)) {
     foreach ($intersections as $point) {
         $windowPoints .= (int)round($point->intersectionPointX) . ',' . (int)round($viewBoxHeight + $minY - $point->intersectionPointY) . ' ';

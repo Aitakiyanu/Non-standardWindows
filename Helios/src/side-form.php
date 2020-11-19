@@ -2,9 +2,20 @@
 namespace Helios;
 
 include_once 'wall-opening-sides-array.php';
+if (count($_POST) > 0) {
+    include_once 'Helios/src/intersections-calculation.php';
+    include_once 'Helios/src/window-sides-length-calculation.php';
+    include_once 'Helios/src/visualisation.php';
+}
+
 
 if (isset($sidesCount)) {
     for ($i = 1; $i <= $sidesCount; $i++) {
+
+        if (isset($windowSides)) {
+            $windowSideLength = $windowSides[$i-1]->sideLength;
+        }
+
         $negateChecked = $_POST["negate_assembly_seam_{$i}"] ?? "";
         if (isset($_POST["left_or_right_{$i}"])) {
             $rightChecked = ($_POST["left_or_right_{$i}"] > 0) ? "checked" : "";
@@ -23,16 +34,16 @@ if (isset($sidesCount)) {
         echo <<<SIDEFORM
             <fieldset id="side_form_{$i}" class="side_form">
                 <legend class="side_form_legend" data-type="legend">Сторона $i</legend>
-                <span id="side_{$i}" hidden>{$_POST["wall_opening_side_length_{$i}"]}</span>
+                <span id="side_{$i}" hidden>{$_POST["wall_opening_side_length_{$i}"]} => {$windowSideLength}</span>
                 
                 <label for="wall_opening_side_length_{$i}">Длина стороны:</label>
-                <input id="wall_opening_side_length_{$i}" type="number" name="wall_opening_side_length_{$i}" value="{$_POST["wall_opening_side_length_{$i}"]}" min="0" required>
+                <input id="wall_opening_side_length_{$i}" type="number" name="wall_opening_side_length_{$i}" value="{$_POST["wall_opening_side_length_{$i}"]}" min="0" required class="side_dimension">
                  
                 <input type="button" id="add_side_{$i}" value="Добавить после" data-type="addside"/>
                 <input type="button" id="remove_side_{$i}" value="Убрать сторону" data-type="removeside"/><br/>
                
                 <label for="wall_opening_side_width_{$i}">Ширина по горизонтали:</label>
-                <input type="number" id="wall_opening_side_width_{$i}" name="wall_opening_side_width_{$i}" value="{$_POST["wall_opening_side_width_{$i}"]}" required>
+                <input type="number" id="wall_opening_side_width_{$i}" name="wall_opening_side_width_{$i}" value="{$_POST["wall_opening_side_width_{$i}"]}" required class="side_dimension">
                 
                 <label for="right_direction_{$i}">вправо(+)</label>
                 <input id="right_direction_{$i}" type="radio" name="left_or_right_{$i}" value="1" required {$rightChecked}>
@@ -41,7 +52,7 @@ if (isset($sidesCount)) {
                 <input id="left_direction_{$i}" type="radio" name="left_or_right_{$i}" value="-1" required {$leftChecked}><br/>
                 
                 <label for="wall_opening_side_height_{$i}">Высота по вертикали:</label>
-                <input type="number" id="wall_opening_side_height_{$i}" name="wall_opening_side_height_{$i}" value="{$_POST["wall_opening_side_height_{$i}"]}" required>
+                <input type="number" id="wall_opening_side_height_{$i}" name="wall_opening_side_height_{$i}" value="{$_POST["wall_opening_side_height_{$i}"]}" required class="side_dimension">
                 
                 <label for="up_direction_{$i}">вверх(+)</label>
                 <input id="up_direction_{$i}" type="radio" name="up_or_down_{$i}" value="1" required {$upChecked}>

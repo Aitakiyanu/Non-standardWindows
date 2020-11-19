@@ -14,8 +14,7 @@ if (count($_POST) > 0) {
         $sidesCount++;
         $sideToCount++;
     }
-    echo $sidesCount;
-    //Заполняем массив сторон проема объектами - сторнами
+    //Заполняем массив сторон проема объектами - сторонами
     for ($i = 1; $i <= $sidesCount; $i++) {
         $seamSign = isset($_POST["negate_assembly_seam_{$i}"]) ? -1 : 1; //Знак для вычисления монтажного шва либо захода за четверть
         $prvSide = ($i === 1 ? $sidesCount : $i) - 1; //-1 для перехода на индексы массива
