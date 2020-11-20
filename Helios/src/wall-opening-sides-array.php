@@ -4,9 +4,9 @@ namespace Helios;
 include_once 'WallOpeningSide.php';
 
 $wallOpeningSides = [];
-$sidesCount = 0;
 
 if (count($_POST) > 0) {
+    $sidesCount = 0;
     $sideToCount = 1;
 
     //Считаем количество сторон

@@ -3,11 +3,9 @@ namespace Helios;
 
 include_once 'IntersectionPoint.php';
 
-$intersections = []; //Массив точек пересечения
-$strLines = []; //Вспомогательный массив номеров сторон, не равных нулю (заменить на ограничение ввода)
-
-$strLinesCount = 0; //Начальный индекс для заполнения массива номеров ненулевых сторон
 if (isset($wallOpeningSides)) {
+    $strLinesCount = 0; //Начальный индекс для заполнения массива номеров ненулевых сторон
+    $strLines = []; //Вспомогательный массив номеров сторон, не равных нулю (заменить на ограничение ввода)
     foreach ($wallOpeningSides as $number => $side) {
         if ($side->newCoefficientC !== 0) {
             $strLines[$strLinesCount] = (int)$number;
@@ -19,6 +17,7 @@ if (isset($wallOpeningSides)) {
 //Заполняем массив точек пересечения, исключая стороны нулевой длины, если сторон не меньше трех (треугольник)
 
 if ($strLinesCount>2) {
+    $intersections = []; //Массив точек пересечения
     for ($pointNumber = 0, $lastPointNumber = $strLinesCount - 1; $pointNumber < $strLinesCount; $pointNumber++) {
         $firstStrLine = $pointNumber === 0 ? $strLines[$lastPointNumber] : $strLines[$pointNumber - 1];
         $secondStrLine = $strLines[$pointNumber];

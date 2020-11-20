@@ -21,13 +21,13 @@ function addSideForm (sideNumber, currentSide) {
         <span id="side_${newSideNumber}" hidden>0</span>
         
         <label for="wall_opening_side_length_${newSideNumber}">Длина стороны:</label>
-        <input id="wall_opening_side_length_${newSideNumber}" type="number" name="wall_opening_side_length_${newSideNumber}" value="0" min="0" required class="side_dimension">
+        <input id="wall_opening_side_length_${newSideNumber}" type="number" name="wall_opening_side_length_${newSideNumber}" value="0" min="0" required class="side_dimension length">
          
         <input type="button" id="add_side_${newSideNumber}" value="Добавить после" data-type="addside"/>
         <input type="button" id="remove_side_${newSideNumber}" value="Убрать сторону" data-type="removeside"/><br/>
        
         <label for="wall_opening_side_width_${newSideNumber}">Ширина по горизонтали:</label>
-        <input type="number" id="wall_opening_side_width_${newSideNumber}" name="wall_opening_side_width_${newSideNumber}" value="0" min="0" required class="side_dimension">
+        <input type="number" id="wall_opening_side_width_${newSideNumber}" name="wall_opening_side_width_${newSideNumber}" value="0" min="0" required class="side_dimension width">
         
         <label for="right_direction_${newSideNumber}">вправо(+)</label>
         <input id="right_direction_${newSideNumber}" type="radio" name="left_or_right_${newSideNumber}" value="1" required checked>
@@ -36,7 +36,7 @@ function addSideForm (sideNumber, currentSide) {
         <input id="left_direction_${newSideNumber}" type="radio" name="left_or_right_${newSideNumber}" value="-1" required><br/>
         
         <label for="wall_opening_side_height_${newSideNumber}">Высота по вертикали:</label>
-        <input type="number" id="wall_opening_side_height_${newSideNumber}" name="wall_opening_side_height_${newSideNumber}" value="0" min="0" required class="side_dimension">
+        <input type="number" id="wall_opening_side_height_${newSideNumber}" name="wall_opening_side_height_${newSideNumber}" value="0" min="0" required class="side_dimension height">
         
         <label for="up_direction_${newSideNumber}">вверх(+)</label>
         <input id="up_direction_${newSideNumber}" type="radio" name="up_or_down_${newSideNumber}" value="1" required checked>
@@ -119,6 +119,43 @@ function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
     }
 }
 
+function calculateTriangleSide() {
+    let parent = this.parentNode;
+    let dimWarn = parent.getElementsByClassName('dim_warn')[0];
+    let sideDimensionsWarning = document.createElement('p');
+    sideDimensionsWarning.className = 'dim_warn';
+    sideDimensionsWarning.innerHTML = 'Высота и ширина стороны должны быть не больше ее длины';
+    let secondSide;
+    let calculatedSide;
+    let differenceOfSquares;
+    if (this.classList.contains('length')) {
+        secondSide = parent.querySelector('.height');
+        calculatedSide = parent.querySelector('.width');
+        differenceOfSquares = Math.pow(this.value, 2) - Math.pow(secondSide.value, 2);
+    } else if (this.classList.contains('width')) {
+        secondSide = parent.querySelector('.length');
+        calculatedSide = parent.querySelector('.height');
+        differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
+
+    } else if (this.classList.contains('height')) {
+        secondSide = parent.querySelector('.length');
+        calculatedSide = parent.querySelector('.width');
+        differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
+    }
+    if (differenceOfSquares >= 0) {
+        calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
+        if (dimWarn !== undefined) {
+            dimWarn.remove();
+        }
+    } else  {
+        calculatedSide.value = 0;
+        if (dimWarn === undefined) {
+            parent.append(sideDimensionsWarning);
+        }
+    }
+
+}
+
 let entForm = document.getElementById('entire_form');
 //Вешаем eventListener на всю форму
 entForm.addEventListener('click', function (event) {
@@ -143,8 +180,7 @@ entForm.addEventListener('click', function (event) {
         let currentSideCollectionIndex = currentSide.id.slice(currentSide.id.lastIndexOf('_') + 1) - 1;
         renumberSideForms(-1, currentSideCollectionIndex);
         currentSide.remove();
+    } else if (event.target.classList.contains('side_dimension')) {
+        event.target.addEventListener('input', calculateTriangleSide);
     }
 })
-
-let sidesDimensions = entForm.querySelectorAll('.side_dimension');
-console.log(sidesDimensions.length);
