@@ -1,15 +1,6 @@
 <?php //Начнем слева
 namespace Helios;
 
-include_once 'wall-opening-sides-array.php';
-if (count($_POST) > 0) {
-    include_once 'intersections-calculation.php';
-    if (!empty($intersections)) {
-        include_once 'window-sides-length-calculation.php';
-        include_once 'visualisation.php';
-    }
-}
-
 if (isset($sidesCount)) {
     for ($i = 1; $i <= $sidesCount; $i++) {
         $windowSideLength = 0;

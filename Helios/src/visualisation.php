@@ -50,10 +50,10 @@ $viewBoxHeight += (10 - $minY);
 //Размер svg внутри окна пропорционально внутренним координатам
 $svgViewPortSizesRatio = $viewBoxHeight / $viewBoxWidth;
 if ($svgViewPortSizesRatio < 1) {
-    $svgWidth = 500;
+    $svgWidth = 200;
     $svgHeight = (int)round($svgWidth * $svgViewPortSizesRatio);
 } else {
-    $svgHeight = 500;
+    $svgHeight = 200;
     $svgWidth = (int)round($svgHeight / $svgViewPortSizesRatio);
 }
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Размеры окна</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="Helios/styles/main.css" type="text/css"/>
 </head>
 <body>
