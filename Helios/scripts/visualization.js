@@ -1,0 +1,17 @@
+let outline = document.createElement('div');
+outline.id = 'outline';
+let svgOutline = document.createElement('svg');
+svgOutline.setAttribute('width', '200');
+svgOutline.setAttribute('height', '200');
+svgOutline.setAttribute('viewBox', '0 0 200 200');
+svgOutline.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+let outlineFigure = document.createElement('polygon');
+outlineFigure.setAttribute('points', '10, 10 190,10 190,190 10,190');
+outlineFigure.setAttribute('fill', 'none');
+outlineFigure.setAttribute('stroke', 'green');
+document.body.append('outline');
+console.log(outline === document.getElementById('outline'));
+//outline = document.getElementById('outline');
+//outline.append('svgOutline');
+//svgOutline = outline.getElementsByTagName('svg')[0];
+//svgOutline.append('outlineFigure');
