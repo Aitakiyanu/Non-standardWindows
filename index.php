@@ -11,6 +11,5 @@
 include_once 'Helios/src/form.php';
 ?>
 <script src="Helios/scripts/form.js"></script>
-<script src="Helios/scripts/visualization.js"></script>
 </body>
 </html>
