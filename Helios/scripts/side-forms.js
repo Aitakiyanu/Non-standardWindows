@@ -24,7 +24,7 @@ function sideForm() {
         return newElement;
     }
 
-    function crateSideFormFieldset() {
+    function crateSideFormFieldset(newSideIndex) {
         //Контейнер формы одной стороны (вставить при нажатии кнопки добавления стороны после стороны с нажимаемой кнопкой
         let newElement = document.createElement('fieldset');
         newElement.className = 'side_form';
@@ -32,7 +32,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideFormLegend() {
+    function createSideFormLegend(newSideIndex) {
         //Легенда формы одной стороны (вставить в контейнер формы одной стороны первым потомком)
         let newElement = document.createElement('legend');
         let sideLegendNumber = newSideIndex + 1; //Номер стороны в легенде
@@ -43,161 +43,177 @@ function sideForm() {
 
     function createSideSizeInformer() {
         //Длина стороны, появляющаяся при скрытии полей ввода в форме при нажатии на легенду этой формы (вставить полсе легенды)
-        let sideSize = document.createElement('span');
-        sideSize.hidden = true;
+        let newElement = document.createElement('span');
+        newElement.hidden = true;
         return newElement;
     }
 
     function createSideLengthInputLabel() {
         //Элемент ввода длины стороны (вставить после скрытой длины стороны, появляющейся при скрытии полей ввода)
-        let sideLengthInputLabel = document.createElement('label');
-        sideLengthInputLabel.textContent = 'Длина стороны:';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'Длина стороны:';
         return newElement;
     }
 
-    function crateSideLengthInputField() {
+    function crateSideLengthInputField(newSideIndex) {
     //Поле ввода длины стороны (вставить в элемент ввода длины стороны последним потомком)
-        let sideLengthInput = document.createElement('input');
-        sideLengthInput.type = 'number';
-        sideLengthInput.value = '0';
-        sideLengthInput.min = '0';
-        sideLengthInput.name = `side_length_${newSideIndex}`;
-        sideLengthInput.classList.add('side_dimension', 'length');
-        sideLengthInput.required = true;
-        return sideLengthInput;
+        let newElement = document.createElement('input');
+        newElement.type = 'number';
+        newElement.value = '0';
+        newElement.min = '0';
+        newElement.name = `side_length_${newSideIndex}`;
+        newElement.classList.add('side_dimension', 'length');
+        newElement.required = true;
+        return newElement;
     }
 
     function createSideWidthInputLabel() {
         //Элемент ввода ширины стороны (вставить после элемента ввода длины стороны)
-        let sideWidthInputLabel = document.createElement('label');
-        sideWidthInputLabel.textContent = 'Ширина по горизонтали:';
-    }
+        let newElement = document.createElement('label');
+        newElement.textContent = 'Ширина по горизонтали:';
+        return newElement;
+        }
 
-    function createSideWidthInputField() {
+    function createSideWidthInputField(newSideIndex) {
         //Поле ввода ширины стороны (вставить в элемент ввода ширины стороны последним потомком)
-        let sideWidthInput = document.createElement('input');
-        sideWidthInput.type = 'number';
-        sideWidthInput.value = '0';
-        sideWidthInput.min = '0';
-        sideWidthInput.classList.add('side_dimension', 'width');
-        sideWidthInput.name = `side_width_${newSideIndex}`;
-        sideWidthInput.required = true;
+        let newElement = document.createElement('input');
+        newElement.type = 'number';
+        newElement.value = '0';
+        newElement.min = '0';
+        newElement.classList.add('side_dimension', 'width');
+        newElement.name = `side_width_${newSideIndex}`;
+        newElement.required = true;
+        return newElement;
     }
 
     function createSideLeftDirectionLabel() {
         //Элемент ввода направления стороны по горизонтали влево (вставить после элемента ввода ширины стороны)
-        let sideLeftDirectionLabel = document.createElement('label');
-        sideLeftDirectionLabel.textContent = 'влево &larr;';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'влево &larr;';
+        return newElement;
     }
 
-    function createSideLeftDirectionRadio() {
+    function createSideLeftDirectionRadio(newSideIndex) {
         //Радиокнопка левого направления добавляемой стороны (вставить в элемент ввода направления стороны по горизонтали влево
         //последним потомком)
-        let sideLeftDirectionRadio = document.createElement('input');
-        sideLeftDirectionRadio.type = 'radio';
-        sideLeftDirectionRadio.required = true;
-        sideLeftDirectionRadio.value = '-1';
-        sideLeftDirectionRadio.name = `left_or_right_${newSideIndex}`;
+        let newElement = document.createElement('input');
+        newElement.type = 'radio';
+        newElement.required = true;
+        newElement.value = '-1';
+        newElement.name = `left_or_right_${newSideIndex}`;
+        return newElement;
     }
 
 
     function createSideRightDirectionLabel() {
         //Элемент ввода направления стороны по горизонтали вправо (вставить после элемента ввода направления влево)
-        let sideRightDirectionLabel = document.createElement('label');
-        sideRightDirectionLabel.textContent = 'вправо &rarr;';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'вправо &rarr;';
+        return newElement;
     }
 
-    function createSideRightDirectionRadio() {
+    function createSideRightDirectionRadio(newSideIndex) {
         //Радиокнопка правого направления добавляемой стороны (вставить в элемент ввода направления стороны по горизонтали вправо
         //последним потомком)
-        let sideRightDirectionRadio = document.createElement('input');
-        sideRightDirectionRadio.type = 'radio';
-        sideRightDirectionRadio.required = true;
-        sideRightDirectionRadio.value = '1';
-        sideRightDirectionRadio.name = `left_or_right_${newSideIndex}`;
-        sideRightDirectionRadio.checked = true;
+        let newElement = document.createElement('input');
+        newElement.type = 'radio';
+        newElement.required = true;
+        newElement.value = '1';
+        newElement.name = `left_or_right_${newSideIndex}`;
+        newElement.checked = true;
+        return newElement;
     }
 
     function createSideHeightInputLabel() {
         //Элемент ввода высоты стороны (вставить после элемента ввода ширины стороны)
-        let sideHeightInputLabel = document.createElement('label');
-        sideHeightInputLabel.textContent = 'Высота по вертикали:';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'Высота по вертикали:';
+        return newElement;
     }
 
-    function createSideHeightInputField() {
+    function createSideHeightInputField(newSideIndex) {
         //Поле ввода высоты стороны (вставить в элемент ввода высоты стороны последним потомком)
-        let sideHeightInput = document.createElement('input');
-        sideHeightInput.type = 'number';
-        sideHeightInput.value = '0';
-        sideHeightInput.min = '0';
-        sideHeightInput.classList.add('side_dimension', 'height');
-        sideHeightInput.name = `side_height_${newSideIndex}`;
-        sideHeightInput.required = true;
+        let newElement = document.createElement('input');
+        newElement.type = 'number';
+        newElement.value = '0';
+        newElement.min = '0';
+        newElement.classList.add('side_dimension', 'height');
+        newElement.name = `side_height_${newSideIndex}`;
+        newElement.required = true;
+        return newElement;
     }
 
     function createSideUpDirectionLabel() {
         //Элемент ввода направления стороны по вертикали вверх (вставить после элемента ввода высоты стороны)
-        let sideUpDirectionLabel = document.createElement('label');
-        sideUpDirectionLabel.textContent = 'вверх &uarr;';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'вверх &uarr;';
+        return newElement;
     }
 
-    function createSideUpDirectionRadio() {
+    function createSideUpDirectionRadio(newSideIndex) {
         //Радиокнопка направления добавляемой стороны вверх (вставить в элемент ввода направления стороны по вертикали вверх
         //последним потомком)
-        let sideUpDirectionRadio = document.createElement('input');
-        sideUpDirectionRadio.type = 'radio';
-        sideUpDirectionRadio.required = true;
-        sideUpDirectionRadio.value = '-1';
-        sideUpDirectionRadio.name = `up_or_down_${newSideIndex}`;
+        let newElement = document.createElement('input');
+        newElement.type = 'radio';
+        newElement.required = true;
+        newElement.value = '-1';
+        newElement.name = `up_or_down_${newSideIndex}`;
+        return newElement;
     }
 
     function createSideDownDirectionLabel() {
         //Элемент ввода направления стороны по вертикали вниз (вставить после элемента ввода направления вверх)
-        let sideDownDirectionLabel = document.createElement('label');
-        sideDownDirectionLabel.textContent = 'вниз &darr;';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'вниз &darr;';
+        return newElement;
     }
 
 
-    function createSideDownDirectionRadio() {
+    function createSideDownDirectionRadio(newSideIndex) {
         //Радиокнопка направления добавляемой стороны вниз (вставить в элемент ввода направления стороны по вертикали вниз
         //последним потомком)
-        let sideDownDirectionRadio = document.createElement('input');
-        sideDownDirectionRadio.type = 'radio';
-        sideDownDirectionRadio.required = true;
-        sideDownDirectionRadio.value = '1';
-        sideDownDirectionRadio.name = `up_or_down_${newSideIndex}`;
-        sideDownDirectionRadio.checked = true;
+        let newElement = document.createElement('input');
+        newElement.type = 'radio';
+        newElement.required = true;
+        newElement.value = '1';
+        newElement.name = `up_or_down_${newSideIndex}`;
+        newElement.checked = true;
+        return newElement;
     }
 
     function createSideSeamInputLabel() {
         //Элемент ввода ширины монтажного шва (вставить после элемента ввода направления стороны вниз)
-        let sideSeamInputLabel = document.createElement('label');
-        sideSeamInputLabel.textContent = 'Шов:';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'Шов:';
+        return newElement;
     }
 
-    function createSideSeamInputField() {
+    function createSideSeamInputField(newSideIndex) {
         //Поле ввода ширины монтажного шва (вставить в элемент ввода ширины монтажного шва последним потомком)
-        let sideSeamInput = document.createElement('input');
-        sideSeamInput.type = 'number';
-        sideSeamInput.value = '20';
-        sideSeamInput.min = '0';
-        sideSeamInput.name = `side_seam_${newSideIndex}`;
-        sideSeamInput.required = true;
+        let newElement = document.createElement('input');
+        newElement.type = 'number';
+        newElement.value = '20';
+        newElement.min = '0';
+        newElement.name = `side_seam_${newSideIndex}`;
+        newElement.required = true;
+        return newElement;
     }
 
     function createNegateSideSeamLabel() {
         //Элемент ввода признака захода за четверть (значение ширины монтажного шва считается глубиной захода за четверть
         //и принимается при расчетах со знаком минус)(вставить после элемента ввода ширины монтажного шва)
-        let negateSideSeamLabel = document.createElement('label');
-        negateSideSeamLabel.textContent = 'или за четверть(-)';
+        let newElement = document.createElement('label');
+        newElement.textContent = 'или за четверть(-)';
+        return newElement;
     }
 
-    function createNegateSideSeamCheckbox() {
+    function createNegateSideSeamCheckbox(newSideIndex) {
         //Чекбокс признака захода за четверть (вставить в элемент ввода признака захода за четверть последним потомком)
-        let negateSideSeamCheckbox = document.createElement('input');
-        negateSideSeamCheckbox.type = 'checkbox';
-        negateSideSeamCheckbox.value = 'checked';
-        negateSideSeamCheckbox.name = `negate_seam_${newSideIndex}`;
+        let newElement = document.createElement('input');
+        newElement.type = 'checkbox';
+        newElement.value = 'checked';
+        newElement.name = `negate_seam_${newSideIndex}`;
+        return newElement;
     }
 
 }
