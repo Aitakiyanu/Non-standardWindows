@@ -24,7 +24,7 @@ function sideForm() {
         return newElement;
     }
 
-    function crateSideFormFieldset(newSideIndex) {
+    function crateSideFormFieldset(newSideIndex = 0) {
         //Контейнер формы одной стороны (вставить при нажатии кнопки добавления стороны после стороны с нажимаемой кнопкой
         let newElement = document.createElement('fieldset');
         newElement.className = 'side_form';
@@ -32,7 +32,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideFormLegend(newSideIndex) {
+    function createSideFormLegend(newSideIndex = 0) {
         //Легенда формы одной стороны (вставить в контейнер формы одной стороны первым потомком)
         let newElement = document.createElement('legend');
         let sideLegendNumber = newSideIndex + 1; //Номер стороны в легенде
@@ -55,7 +55,7 @@ function sideForm() {
         return newElement;
     }
 
-    function crateSideLengthInputField(newSideIndex) {
+    function crateSideLengthInputField(newSideIndex = 0) {
     //Поле ввода длины стороны (вставить в элемент ввода длины стороны последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
@@ -74,7 +74,7 @@ function sideForm() {
         return newElement;
         }
 
-    function createSideWidthInputField(newSideIndex) {
+    function createSideWidthInputField(newSideIndex = 0) {
         //Поле ввода ширины стороны (вставить в элемент ввода ширины стороны последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
@@ -93,7 +93,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideLeftDirectionRadio(newSideIndex) {
+    function createSideLeftDirectionRadio(newSideIndex = 0) {
         //Радиокнопка левого направления добавляемой стороны (вставить в элемент ввода направления стороны по горизонтали влево
         //последним потомком)
         let newElement = document.createElement('input');
@@ -112,7 +112,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideRightDirectionRadio(newSideIndex) {
+    function createSideRightDirectionRadio(newSideIndex = 0) {
         //Радиокнопка правого направления добавляемой стороны (вставить в элемент ввода направления стороны по горизонтали вправо
         //последним потомком)
         let newElement = document.createElement('input');
@@ -131,7 +131,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideHeightInputField(newSideIndex) {
+    function createSideHeightInputField(newSideIndex = 0) {
         //Поле ввода высоты стороны (вставить в элемент ввода высоты стороны последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
@@ -150,7 +150,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideUpDirectionRadio(newSideIndex) {
+    function createSideUpDirectionRadio(newSideIndex = 0) {
         //Радиокнопка направления добавляемой стороны вверх (вставить в элемент ввода направления стороны по вертикали вверх
         //последним потомком)
         let newElement = document.createElement('input');
@@ -169,7 +169,7 @@ function sideForm() {
     }
 
 
-    function createSideDownDirectionRadio(newSideIndex) {
+    function createSideDownDirectionRadio(newSideIndex = 0) {
         //Радиокнопка направления добавляемой стороны вниз (вставить в элемент ввода направления стороны по вертикали вниз
         //последним потомком)
         let newElement = document.createElement('input');
@@ -188,7 +188,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createSideSeamInputField(newSideIndex) {
+    function createSideSeamInputField(newSideIndex = 0) {
         //Поле ввода ширины монтажного шва (вставить в элемент ввода ширины монтажного шва последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
@@ -207,7 +207,7 @@ function sideForm() {
         return newElement;
     }
 
-    function createNegateSideSeamCheckbox(newSideIndex) {
+    function createNegateSideSeamCheckbox(newSideIndex = 0) {
         //Чекбокс признака захода за четверть (вставить в элемент ввода признака захода за четверть последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'checkbox';

@@ -67,25 +67,25 @@ function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
             let nextSide = side + 2;
             //Переименовываем (перенумеровываем) идентификатор fieldset
             if (sideForms[side].hasAttribute('id')) {
-                sideForms[side].id = sideForms[side].id.slice(0, sideForms[side].id.lastIndexOf('_') + 1) + nextSide;
+                sideForms[side].id = sideForms[side].id.replace(/\d+$/, '') + nextSide;
             }
             //Получаем все элементы внутри формы
-            let formtags = sideForms[side].querySelectorAll('*');
+            let formTags = sideForms[side].querySelectorAll('*');
             //Вспомогательная переменная с количеством элементов для цикла
-            let formtagsCount = formtags.length;
+            let formTagsCount = formTags.length;
             //Изменяем номер в атрибутах всех сторон после текущей, если она не последняя
-            for (let i = 0; i < formtagsCount; i++) {
-                if (formtags[i].hasAttribute('id')) {
-                    formtags[i].id = formtags[i].id.slice(0, formtags[i].id.lastIndexOf('_') + 1) + nextSide;
+            for (let i = 0; i < formTagsCount; i++) {
+                if (formTags[i].hasAttribute('id')) {
+                    formTags[i].id = formTags[i].id.replace(/\d+$/, nextSide);
                 }
-                if (formtags[i].hasAttribute('name')) {
-                    formtags[i].setAttribute('name', formtags[i].getAttribute('name').slice(0, formtags[i].getAttribute('name').lastIndexOf('_') + 1) + nextSide);
+                if (formTags[i].hasAttribute('name')) {
+                    formTags[i].name = formTags[i].name.replace(/\d+$/, nextSide);
                 }
-                if (formtags[i].hasAttribute('for')) {
-                    formtags[i].setAttribute('for', formtags[i].getAttribute('for').slice(0, formtags[i].getAttribute('for').lastIndexOf('_') + 1) + nextSide);
+                if (formTags[i].hasAttribute('for')) {
+                    formTags[i].for = formTags[i].for.replace(/\d+$/, nextSide);
                 }
-                if (formtags[i].classList.contains('side_form_legend')) {
-                    formtags[i].innerHTML = formtags[i].innerHTML.slice(0, formtags[i].innerHTML.lastIndexOf(' ')) + ' ' + nextSide;
+                if (formTags[i].classList.contains('side_form_legend')) {
+                    formTags[i].innerHTML = formTags[i].innerHTML.replace(/\d+$/, nextSide);
                 }
             }
         }
@@ -93,25 +93,25 @@ function renumberSideForms(addOrRemove, currentSideCollectionIndex) {
         for (let side = currentSideCollectionIndex +1; side < sidesCount; side++) {
             //Меняем номер fieldset id на номер индекса, то есть уменьшаем на 1
             if (sideForms[side].hasAttribute('id')) {
-                sideForms[side].id = sideForms[side].id.slice(0, sideForms[side].id.lastIndexOf('_')+1) + side;
+                sideForms[side].id = sideForms[side].id.replace(/\d+$/, side);
             }
             //Получаем все элементы внутри формы
-            let formtags = sideForms[side].querySelectorAll('*');
+            let formTags = sideForms[side].querySelectorAll('*');
             //Вспомогательная переменная с количеством элементов для цикла
-            let formtagsCount = formtags.length;
+            let formTagsCount = formTags.length;
             //Изменяем номер в атрибутах всех сторон после текущей, если она не последняя
-            for (let i = 0; i < formtagsCount; i++) {
-                if (formtags[i].hasAttribute('id')) {
-                    formtags[i].id = formtags[i].id.slice(0, formtags[i].id.lastIndexOf('_') + 1) + side;
+            for (let i = 0; i < formTagsCount; i++) {
+                if (formTags[i].hasAttribute('id')) {
+                    formTags[i].id = formTags[i].id.replace(/\d+$/, side);
                 }
-                if (formtags[i].hasAttribute('name')) {
-                    formtags[i].setAttribute('name', formtags[i].getAttribute('name').slice(0, formtags[i].getAttribute('name').lastIndexOf('_') + 1) + side);
+                if (formTags[i].hasAttribute('name')) {
+                    formTags[i].name = formTags[i].name.replace(/\d+$/, side);
                 }
-                if (formtags[i].hasAttribute('for')) {
-                    formtags[i].setAttribute('for', formtags[i].getAttribute('for').slice(0, formtags[i].getAttribute('for').lastIndexOf('_') + 1) + side);
+                if (formTags[i].hasAttribute('for')) {
+                    formTags[i].for = formTags[i].for.replace(/\d+$/, side);
                 }
-                if (formtags[i].classList.contains('side_form_legend')) {
-                    formtags[i].innerHTML = formtags[i].innerHTML.slice(0, formtags[i].innerHTML.lastIndexOf(' ')) + ' ' + side;
+                if (formTags[i].classList.contains('side_form_legend')) {
+                    formTags[i].innerHTML = formTags[i].innerHTML.replace(/\d+$/, side);
                 }
             }
 
