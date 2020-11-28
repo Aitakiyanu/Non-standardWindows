@@ -1,13 +1,15 @@
 input[type=number] {
     width: 50px;
 }
+
 fieldset {
     width: fit-content;
 }
 
-.side_form p {
-    margin: 0;
-}
 .side_form:hover {
     cursor: pointer;
+}
+
+#sendvalues {
+    margin: 1%;
 }
