@@ -1,6 +1,9 @@
 'use strict';
 
 window.onload = function () {
+
+    document.getElementById('add_side_button').addEventListener('click', handleAddSideButtonClick);
+
     function createAddSideButton() {
         //Кнопка добавления стороны (вставить возле кнопки отправки значений, если сторон 0,
         //и в форме каждой стороны с изменением надписи на "Добавить после" после элемента ввода длины стороны.
@@ -8,7 +11,9 @@ window.onload = function () {
         let newElement = document.createElement('input');
         newElement.type = 'button';
         newElement.className = 'add_side_button';
-        newElement.value = 'Добавить следующую сторону';
+        newElement.value = '+';
+        newElement.title = 'Добавить сторону после этой';
+        newElement.addEventListener('click', handleAddSideButtonClick);
         return newElement;
     }
 
@@ -17,7 +22,9 @@ window.onload = function () {
         let newElement = document.createElement('input');
         newElement.type = 'button';
         newElement.className = 'remove_side_button';
-        newElement.value = 'Убрать эту сторону';
+        newElement.value = 'Х';
+        newElement.title = 'Удалить эту сторону';
+        newElement.addEventListener('click', handleRemoveSideButtonClick);
         return newElement;
     }
 
@@ -35,6 +42,7 @@ window.onload = function () {
         let sideLegendNumber = newSideIndex + 1; //Номер стороны в легенде
         newElement.className = 'side_form_legend';
         newElement.textContent = `Сторона ${sideLegendNumber}`;
+        newElement.addEventListener('click', hideFormInputs);
         return newElement;
     }
 
@@ -61,6 +69,7 @@ window.onload = function () {
         newElement.name = `side_length_${newSideIndex}`;
         newElement.classList.add('side_dimension', 'length');
         newElement.required = true;
+        newElement.addEventListener('input', calculateTriangleSide);
         return newElement;
     }
 
@@ -80,6 +89,41 @@ window.onload = function () {
         newElement.classList.add('side_dimension', 'width');
         newElement.name = `side_width_${newSideIndex}`;
         newElement.required = true;
+        newElement.addEventListener('input', calculateTriangleSide);
+        return newElement;
+    }
+
+    function createSideLeftDirectionCheckboxLabel() {
+        //Элемент ввода признака направления стороны влево от предыдущей (ширина в расчете берется с минусом)
+        //(вставить после элемента ввода ширины стороны)
+        let newElement = document.createElement('label');
+        newElement.textContent = 'влево от предыдущей';
+        return newElement;
+    }
+
+    function createSideLeftDirectionCheckbox() {
+        //Чекбокс признака направления стороны влево от предыдущей (вставить в элемент ввода направления влево последним потомком)
+        let newElement = document.createElement('input');
+        newElement.type = 'checkbox';
+        newElement.value = 'checked';
+        newElement.name = `left_direction_${newSideIndex}`;
+        return newElement;
+    }
+
+    function createSideDownDirectionCheckboxLabel() {
+        //Элемент ввода признака направления стороны вниз от предыдущей (высота в расчете берется с минусом)
+        //(вставить после элемента ввода высоты стороны)
+        let newElement = document.createElement('label');
+        newElement.textContent = 'влево от предыдущей';
+        return newElement;
+    }
+
+    function createSideDownDirectionCheckbox() {
+        //Чекбокс признака направления стороны вниз от предыдущей (вставить в элемент ввода направления вниз последним потомком)
+        let newElement = document.createElement('input');
+        newElement.type = 'checkbox';
+        newElement.value = 'checked';
+        newElement.name = `left_direction_${newSideIndex}`;
         return newElement;
     }
 
@@ -100,7 +144,6 @@ window.onload = function () {
         newElement.name = `left_or_right_${newSideIndex}`;
         return newElement;
     }
-
 
     function createSideRightDirectionLabel() {
         //Элемент ввода направления стороны по горизонтали вправо (вставить после элемента ввода направления влево)
@@ -137,6 +180,7 @@ window.onload = function () {
         newElement.classList.add('side_dimension', 'height');
         newElement.name = `side_height_${newSideIndex}`;
         newElement.required = true;
+        newElement.addEventListener('input', calculateTriangleSide);
         return newElement;
     }
 
@@ -227,6 +271,7 @@ window.onload = function () {
         //Добавляем легенду с номером стороны
         let sideLegend = createSideFormLegend(addSideIndex);
         side.prepend(sideLegend);
+        //sideLegend.addEventListener('click', hideFormInputs);
 
         //Добавляем скрывающийся информер
         let informer = createSideSizeInformer();
@@ -306,7 +351,6 @@ window.onload = function () {
 
     function renumberSideForms(addOrRemove, currentSideIndex) {
         let sideForms = document.querySelectorAll('.side_form'); //Коллекция всех сторон (форм ввода)
-        console.log(sideForms);
         let sidesCount = sideForms.length; //Количество сторон
         let sideNewIndex; //Новый индекс перенумеровываемой стороны
         let formTags; //Элементы внутри формы перенумеровываемой стороны
@@ -339,39 +383,70 @@ window.onload = function () {
         document.getElementById('add_side_button').hidden = sidesCount + addOrRemove !== 0;
     }
 
-    function handleFormClick(event) { //Обработчик клика по форме
-        let clickTarget = event.target;
-        let clist = clickTarget.classList;
-        let parent = clickTarget.parentElement;
-        switch (true) {
-            case clist.contains('side_form_legend'):
-                let itemsToHide = clickTarget.parentNode.querySelectorAll('label');
-                let itemsCount = itemsToHide.length;
-                for (let i = 0; i < itemsCount; i++) {
-                    itemsToHide[i].hidden = !itemsToHide[i].hidden;
-                }
-                break;
-            case clist.contains('add_side_button'):
-                let addSideIndex = 0;
-                if (parent.hasAttribute('data-index')) {
-                    let currentSideIndex = Number(parent.dataset.index); //Индекс текущей стороны
-                    addSideIndex = currentSideIndex + 1;
-                    renumberSideForms(1, currentSideIndex);
-                }
-                addSide(parent, addSideIndex);
-                break;
-            case clist.contains('remove_side_button'):
-                let currentSideIndex = Number(parent.dataset.index); //Индекс текущей стороны
-                renumberSideForms(-1, currentSideIndex);
-                parent.remove();
-                break;
-            case clist.contains('side_dimension'):
-                alert(clickTarget);
-                break;
+    function hideFormInputs(event) {
+        let itemsToHide = event.target.parentNode.querySelectorAll('label');
+        let itemsCount = itemsToHide.length;
+        for (let i = 0; i < itemsCount; i++) {
+            itemsToHide[i].hidden = !itemsToHide[i].hidden;
+            //Скрыть также br-теги
+            if (itemsToHide[i].nextSibling && itemsToHide[i].nextSibling.tagName.toLowerCase() === 'br') {
+                itemsToHide[i].nextSibling.hidden = !itemsToHide[i].nextSibling.hidden;
+            }
         }
     }
 
-    //Отслеживаем клик по форме
-    let entForm = document.getElementById('entire_form');
-    entForm.addEventListener('click', handleFormClick);
+    function handleAddSideButtonClick(event) {
+        let parent = event.target.parentElement;
+        let addSideIndex = 0;
+        if (parent.hasAttribute('data-index')) {
+            let currentSideIndex = Number(parent.dataset.index); //Индекс текущей стороны
+            addSideIndex = currentSideIndex + 1;
+            renumberSideForms(1, currentSideIndex);
+        }
+        addSide(parent, addSideIndex);
+    }
+
+    function handleRemoveSideButtonClick(event) {
+        let parent = event.target.parentElement;
+        let currentSideIndex = Number(parent.dataset.index); //Индекс текущей стороны
+        renumberSideForms(-1, currentSideIndex);
+        parent.remove();
+    }
+
+    function calculateTriangleSide() {
+        let parent = this.parentNode.parentNode;
+        let sideDimensionsWarning = document.createElement('p');
+        sideDimensionsWarning.className = 'dim_warn';
+        sideDimensionsWarning.innerHTML = 'Высота и ширина стороны должны быть не больше ее длины';
+        let secondSide;
+        let calculatedSide;
+        let differenceOfSquares;
+        if (this.classList.contains('length')) {
+            secondSide = parent.querySelector('.height');
+            calculatedSide = parent.querySelector('.width');
+            differenceOfSquares = Math.pow(this.value, 2) - Math.pow(secondSide.value, 2);
+        } else if (this.classList.contains('width')) {
+            secondSide = parent.querySelector('.length');
+            calculatedSide = parent.querySelector('.height');
+            differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
+
+        } else if (this.classList.contains('height')) {
+            secondSide = parent.querySelector('.length');
+            calculatedSide = parent.querySelector('.width');
+            differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
+        }
+        let dimWarn = parent.getElementsByClassName('dim_warn')[0];
+        if (differenceOfSquares >= 0) {
+            calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
+            if (dimWarn !== undefined) {
+                dimWarn.remove();
+            }
+        } else  {
+            calculatedSide.value = 0;
+            if (dimWarn === undefined) {
+                parent.append(sideDimensionsWarning);
+            }
+        }
+    }
+
 }
