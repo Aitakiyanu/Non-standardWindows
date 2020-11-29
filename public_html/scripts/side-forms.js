@@ -4,6 +4,8 @@ window.onload = function () {
 
     document.getElementById('add_side_button').addEventListener('click', handleAddSideButtonClick);
 
+    let sideDimensions = [];
+
     function createAddSideButton() {
         //Кнопка добавления стороны (вставить возле кнопки отправки значений, если сторон 0,
         //и в форме каждой стороны с изменением надписи на "Добавить после" после элемента ввода длины стороны.
@@ -184,6 +186,8 @@ window.onload = function () {
 
     function addSide(parent, addSideIndex) {
 
+        sideDimensions.splice(addSideIndex, 0, [0, 0, 0, 20]);
+
         //Добавляем сторону (форму)
         let side = createSideFormFieldset(addSideIndex);
         if (addSideIndex === 0) {
@@ -261,6 +265,7 @@ window.onload = function () {
         let negateSeamCheckbox = createNegateSideSeamCheckbox(addSideIndex);
         negateSeam.append(negateSeamCheckbox);
 
+        console.log(sideDimensions);
     }
 
     function renumberSideForms(addOrRemove, currentSideIndex) {
