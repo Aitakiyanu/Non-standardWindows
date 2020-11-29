@@ -101,7 +101,7 @@ window.onload = function () {
         return newElement;
     }
 
-    function createSideLeftDirectionCheckbox() {
+    function createSideLeftDirectionCheckbox(newSideIndex = 0) {
         //Чекбокс признака направления стороны влево от предыдущей (вставить в элемент ввода направления влево последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'checkbox';
@@ -114,53 +114,16 @@ window.onload = function () {
         //Элемент ввода признака направления стороны вниз от предыдущей (высота в расчете берется с минусом)
         //(вставить после элемента ввода высоты стороны)
         let newElement = document.createElement('label');
-        newElement.textContent = 'влево от предыдущей';
+        newElement.textContent = 'вниз от предыдущей';
         return newElement;
     }
 
-    function createSideDownDirectionCheckbox() {
+    function createSideDownDirectionCheckbox(newSideIndex = 0) {
         //Чекбокс признака направления стороны вниз от предыдущей (вставить в элемент ввода направления вниз последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'checkbox';
         newElement.value = 'checked';
         newElement.name = `left_direction_${newSideIndex}`;
-        return newElement;
-    }
-
-    function createSideLeftDirectionLabel() {
-        //Элемент ввода направления стороны по горизонтали влево (вставить после элемента ввода ширины стороны)
-        let newElement = document.createElement('label');
-        newElement.innerHTML = 'влево &larr;';
-        return newElement;
-    }
-
-    function createSideLeftDirectionRadio(newSideIndex = 0) {
-        //Радиокнопка левого направления добавляемой стороны (вставить в элемент ввода направления стороны по горизонтали влево
-        //последним потомком)
-        let newElement = document.createElement('input');
-        newElement.type = 'radio';
-        newElement.required = true;
-        newElement.value = '-1';
-        newElement.name = `left_or_right_${newSideIndex}`;
-        return newElement;
-    }
-
-    function createSideRightDirectionLabel() {
-        //Элемент ввода направления стороны по горизонтали вправо (вставить после элемента ввода направления влево)
-        let newElement = document.createElement('label');
-        newElement.innerHTML = 'вправо &rarr;';
-        return newElement;
-    }
-
-    function createSideRightDirectionRadio(newSideIndex = 0) {
-        //Радиокнопка правого направления добавляемой стороны (вставить в элемент ввода направления стороны по горизонтали вправо
-        //последним потомком)
-        let newElement = document.createElement('input');
-        newElement.type = 'radio';
-        newElement.required = true;
-        newElement.value = '1';
-        newElement.name = `left_or_right_${newSideIndex}`;
-        newElement.setAttribute('checked', '');
         return newElement;
     }
 
@@ -181,43 +144,6 @@ window.onload = function () {
         newElement.name = `side_height_${newSideIndex}`;
         newElement.required = true;
         newElement.addEventListener('input', calculateTriangleSide);
-        return newElement;
-    }
-
-    function createSideUpDirectionLabel() {
-        //Элемент ввода направления стороны по вертикали вверх (вставить после элемента ввода высоты стороны)
-        let newElement = document.createElement('label');
-        newElement.innerHTML = 'вверх &uarr;';
-        return newElement;
-    }
-
-    function createSideUpDirectionRadio(newSideIndex = 0) {
-        //Радиокнопка направления добавляемой стороны вверх (вставить в элемент ввода направления стороны по вертикали вверх
-        //последним потомком)
-        let newElement = document.createElement('input');
-        newElement.type = 'radio';
-        newElement.required = true;
-        newElement.value = '-1';
-        newElement.name = `up_or_down_${newSideIndex}`;
-        newElement.setAttribute('checked', '');
-        return newElement;
-    }
-
-    function createSideDownDirectionLabel() {
-        //Элемент ввода направления стороны по вертикали вниз (вставить после элемента ввода направления вверх)
-        let newElement = document.createElement('label');
-        newElement.innerHTML = 'вниз &darr;';
-        return newElement;
-    }
-
-    function createSideDownDirectionRadio(newSideIndex = 0) {
-        //Радиокнопка направления добавляемой стороны вниз (вставить в элемент ввода направления стороны по вертикали вниз
-        //последним потомком)
-        let newElement = document.createElement('input');
-        newElement.type = 'radio';
-        newElement.required = true;
-        newElement.value = '1';
-        newElement.name = `up_or_down_${newSideIndex}`;
         return newElement;
     }
 
@@ -299,20 +225,14 @@ window.onload = function () {
         let widthInputField = createSideWidthInputField(addSideIndex);
         widthInput.append(widthInputField);
 
-        //Добавляем радиокнопку левого направления по горизонтали
-        let leftDirection = createSideLeftDirectionLabel();
+        //Добавляем чекбокс левого направления стороны
+        let leftDirection = createSideLeftDirectionCheckboxLabel();
         widthInput.after(leftDirection);
-        let leftDirectionRadio = createSideLeftDirectionRadio(addSideIndex);
-        leftDirection.append(leftDirectionRadio);
-
-        //Добавляем радиокнопку правого направления по горизонтали
-        let rightDirection = createSideRightDirectionLabel();
-        leftDirection.after(rightDirection);
-        let rightDirectionRadio = createSideRightDirectionRadio(addSideIndex);
-        rightDirection.append(rightDirectionRadio);
+        let leftDirectionCheckbox = createSideLeftDirectionCheckbox(addSideIndex);
+        leftDirection.append(leftDirectionCheckbox);
 
         //Перенос строки
-        rightDirection.after(br.cloneNode());
+        leftDirection.after(br.cloneNode());
 
         //Добавляем элемент ввода высоты стороны
         let heightInput = createSideHeightInputLabel();
@@ -320,17 +240,11 @@ window.onload = function () {
         let heightInputField = createSideHeightInputField(addSideIndex);
         heightInput.append(heightInputField);
 
-        //Добавляем радиокнопку направления по вертикали вверх
-        let upDirection = createSideUpDirectionLabel();
-        heightInput.after(upDirection);
-        let upDirectionRadio = createSideUpDirectionRadio(addSideIndex);
-        upDirection.append(upDirectionRadio);
-
-        //Добавляем радиокнопку направления по вертикали вниз
-        let downDirection = createSideDownDirectionLabel();
-        upDirection.after(downDirection);
-        let downDirectionRadio = createSideDownDirectionRadio();
-        downDirection.append(downDirectionRadio);
+        //Добавляем чекбокс направления ситорны вниз
+        let downDirection = createSideDownDirectionCheckboxLabel();
+        heightInput.after(downDirection);
+        let downDirectionCheckbox = createSideDownDirectionCheckbox(addSideIndex);
+        downDirection.append(downDirectionCheckbox);
 
         //Перенос строки
         downDirection.after(br.cloneNode());
