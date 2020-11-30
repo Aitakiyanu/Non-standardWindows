@@ -186,8 +186,6 @@ window.onload = function () {
 
     function addSide(parent, addSideIndex) {
 
-        sideDimensions.splice(addSideIndex, 0, [0, 0, 0, 20]);
-
         //Добавляем сторону (форму)
         let side = createSideFormFieldset(addSideIndex);
         if (addSideIndex === 0) {
@@ -264,8 +262,6 @@ window.onload = function () {
         seamInput.after(negateSeam);
         let negateSeamCheckbox = createNegateSideSeamCheckbox(addSideIndex);
         negateSeam.append(negateSeamCheckbox);
-
-        console.log(sideDimensions);
     }
 
     function renumberSideForms(addOrRemove, currentSideIndex) {
@@ -323,6 +319,7 @@ window.onload = function () {
             renumberSideForms(1, currentSideIndex);
         }
         addSide(parent, addSideIndex);
+        sideDimensions.splice(addSideIndex, 0, [0, 0, 0, 20]);
     }
 
     function handleRemoveSideButtonClick(event) {
@@ -330,6 +327,7 @@ window.onload = function () {
         let currentSideIndex = Number(parent.dataset.index); //Индекс текущей стороны
         renumberSideForms(-1, currentSideIndex);
         parent.remove();
+        sideDimensions.splice(currentSideIndex, 1);
     }
 
     function calculateTriangleSide() {
