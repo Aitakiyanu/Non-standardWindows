@@ -7,9 +7,7 @@ window.onload = function () {
     let sideDimensions = [];
 
     function createAddSideButton() {
-        //Кнопка добавления стороны (вставить возле кнопки отправки значений, если сторон 0,
-        //и в форме каждой стороны с изменением надписи на "Добавить после" после элемента ввода длины стороны.
-        //В случае, если добавляется сторона, убрать кнопку возле кнопки отправки значений)
+        //Кнопка добавления стороны (вставить в форме каждой стороны после элемента ввода длины стороны)
         let newElement = document.createElement('input');
         newElement.type = 'button';
         newElement.className = 'add_side_button';
@@ -331,33 +329,39 @@ window.onload = function () {
     }
 
     function calculateTriangleSide() {
+        //Расчет третьего размера стороны (длина-стороны-ширина) при изменении занчения в поле ввода размера
         let parent = this.parentNode.parentNode;
         let sideDimensionsWarning = document.createElement('p');
         sideDimensionsWarning.className = 'dim_warn';
+        sideDimensionsWarning.hidden = true;
         sideDimensionsWarning.innerHTML = 'Высота и ширина стороны должны быть не больше ее длины';
+
         let secondSide;
         let calculatedSide;
         let differenceOfSquares;
         if (this.classList.contains('length')) {
+            //При вводе длины стороны рассчитывается ширина. Высота не меняется
             secondSide = parent.querySelector('.height');
             calculatedSide = parent.querySelector('.width');
             differenceOfSquares = Math.pow(this.value, 2) - Math.pow(secondSide.value, 2);
         } else if (this.classList.contains('width')) {
+            //При вводе ширины стороны рассчитывается высота. Длина не меняетя
             secondSide = parent.querySelector('.length');
             calculatedSide = parent.querySelector('.height');
             differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
 
         } else if (this.classList.contains('height')) {
+            //При вводе высоты стороны рассчитывается ширина. Длина не меняется
             secondSide = parent.querySelector('.length');
             calculatedSide = parent.querySelector('.width');
             differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
         }
-        let dimWarn = parent.getElementsByClassName('dim_warn')[0];
+        //let dimWarn = parent.getElementsByClassName('dim_warn')[0];
         if (differenceOfSquares >= 0) {
             calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
-            if (dimWarn !== undefined) {
-                dimWarn.remove();
-            }
+            //if (dimWarn !== undefined) {
+            //    dimWarn.remove();
+            //}
         } else  {
             calculatedSide.value = 0;
             if (dimWarn === undefined) {
