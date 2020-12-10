@@ -86,8 +86,8 @@ window.onload = function () {
         newElement.type = 'number';
         newElement.value = '0';
         newElement.min = '0';
-        newElement.classList.add('side_dimension', 'width');
         newElement.name = `side_width_${newSideIndex}`;
+        newElement.classList.add('side_dimension', 'width');
         newElement.required = true;
         newElement.addEventListener('input', calculateTriangleSide);
         return newElement;
@@ -140,8 +140,8 @@ window.onload = function () {
         newElement.type = 'number';
         newElement.value = '0';
         newElement.min = '0';
-        newElement.classList.add('side_dimension', 'height');
         newElement.name = `side_height_${newSideIndex}`;
+        newElement.classList.add('side_dimension', 'height');
         newElement.required = true;
         newElement.addEventListener('input', calculateTriangleSide);
         return newElement;
@@ -343,37 +343,53 @@ window.onload = function () {
     function calculateTriangleSide() {
         //Расчет третьего размера стороны (длина-стороны-ширина) при изменении занчения в поле ввода размера
         let parent = this.parentNode.parentNode;
+        let currentSideIndex = parent.dataset.index;
         let dimWarn = parent.getElementsByClassName('dim_warn')[0];
-        let secondSide;
-        let calculatedSide;
+        let length = parent.querySelector('.length');
+        let width = parent.querySelector('.width');
+        let height = parent.querySelector('.height');
         let differenceOfSquares;
-        if (this.classList.contains('length')) {
+        if (this === length) {
             //При вводе длины стороны рассчитывается ширина. Высота не меняется
-            secondSide = parent.querySelector('.height');
-            calculatedSide = parent.querySelector('.width');
-            differenceOfSquares = Math.pow(this.value, 2) - Math.pow(secondSide.value, 2);
-        } else if (this.classList.contains('width')) {
-            //При вводе ширины стороны рассчитывается высота. Длина не меняетя
-            secondSide = parent.querySelector('.length');
-            calculatedSide = parent.querySelector('.height');
-            differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
-
-        } else if (this.classList.contains('height')) {
-            //При вводе высоты стороны рассчитывается ширина. Длина не меняется
-            secondSide = parent.querySelector('.length');
-            calculatedSide = parent.querySelector('.width');
-            differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
-        }
-
-        if (differenceOfSquares >= 0) {
-            calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
-            if (dimWarn.hidden === false) {
-                dimWarn.hidden = true;
+            differenceOfSquares = Math.pow(length.value, 2) - Math.pow(height.value, 2);
+            if (differenceOfSquares >= 0) {
+                width.value = Math.round(Math.sqrt(differenceOfSquares));
+                if (dimWarn.hidden === false) {
+                    dimWarn.hidden = true;
+                }
+            } else {
+                width.value = 0;
+                if (dimWarn.hidden === true) {
+                    dimWarn.hidden = false;
+                }
             }
-        } else  {
-            calculatedSide.value = 0;
-            if (dimWarn.hidden === true) {
-                dimWarn.hidden = false;
+        } else if (this === width) {
+            //При вводе ширины стороны рассчитывается высота. Длина не меняетя
+            differenceOfSquares = Math.pow(length.value, 2) - Math.pow(width.value, 2);
+            if (differenceOfSquares >= 0) {
+                height.value = Math.round(Math.sqrt(differenceOfSquares));
+                if (dimWarn.hidden === false) {
+                    dimWarn.hidden = true;
+                }
+            } else {
+                height.value = 0;
+                if (dimWarn.hidden === true) {
+                    dimWarn.hidden = false;
+                }
+            }
+        } else if (this === height) {
+            //При вводе высоты стороны рассчитывается ширина. Длина не меняется
+            differenceOfSquares = Math.pow(length.value, 2) - Math.pow(height.value, 2);
+            if (differenceOfSquares >= 0) {
+                width.value = Math.round(Math.sqrt(differenceOfSquares));
+                if (dimWarn.hidden === false) {
+                    dimWarn.hidden = true;
+                }
+            } else {
+                width.value = 0;
+                if (dimWarn.hidden === true) {
+                    dimWarn.hidden = false;
+                }
             }
         }
     }
