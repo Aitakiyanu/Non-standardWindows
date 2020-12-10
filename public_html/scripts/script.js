@@ -182,6 +182,14 @@ window.onload = function () {
         return newElement;
     }
 
+    function createSideDimensionsWarning() {
+        let newElement = document.createElement('p');
+        newElement.className = 'dim_warn';
+        newElement.hidden = true;
+        newElement.innerHTML = 'Высота и ширина стороны должны быть не больше ее длины';
+        return newElement;
+    }
+
     function addSide(parent, addSideIndex) {
 
         //Добавляем сторону (форму)
@@ -259,7 +267,11 @@ window.onload = function () {
         let negateSeam = createNegateSideSeamLabel();
         seamInput.after(negateSeam);
         let negateSeamCheckbox = createNegateSideSeamCheckbox(addSideIndex);
-        negateSeam.append(negateSeamCheckbox);
+        negateSeam.append(negateSeamCheckbox)
+
+        //Добавляем скрытое предупреждение о размерах стороны
+        let dimWarn = createSideDimensionsWarning();
+        negateSeam.after(dimWarn);
     }
 
     function renumberSideForms(addOrRemove, currentSideIndex) {
@@ -331,11 +343,7 @@ window.onload = function () {
     function calculateTriangleSide() {
         //Расчет третьего размера стороны (длина-стороны-ширина) при изменении занчения в поле ввода размера
         let parent = this.parentNode.parentNode;
-        let sideDimensionsWarning = document.createElement('p');
-        sideDimensionsWarning.className = 'dim_warn';
-        sideDimensionsWarning.hidden = true;
-        sideDimensionsWarning.innerHTML = 'Высота и ширина стороны должны быть не больше ее длины';
-
+        let dimWarn = parent.getElementsByClassName('dim_warn')[0];
         let secondSide;
         let calculatedSide;
         let differenceOfSquares;
@@ -356,18 +364,17 @@ window.onload = function () {
             calculatedSide = parent.querySelector('.width');
             differenceOfSquares = Math.pow(secondSide.value, 2) - Math.pow(this.value, 2);
         }
-        //let dimWarn = parent.getElementsByClassName('dim_warn')[0];
+
         if (differenceOfSquares >= 0) {
             calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
-            //if (dimWarn !== undefined) {
-            //    dimWarn.remove();
-            //}
+            if (dimWarn.hidden === false) {
+                dimWarn.hidden = true;
+            }
         } else  {
             calculatedSide.value = 0;
-            if (dimWarn === undefined) {
-                parent.append(sideDimensionsWarning);
+            if (dimWarn.hidden === true) {
+                dimWarn.hidden = false;
             }
         }
     }
-
 }
