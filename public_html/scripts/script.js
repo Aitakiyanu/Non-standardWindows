@@ -349,48 +349,38 @@ window.onload = function () {
         let width = parent.querySelector('.width');
         let height = parent.querySelector('.height');
         let differenceOfSquares;
-        if (this === length) {
-            //При вводе длины стороны рассчитывается ширина. Высота не меняется
-            differenceOfSquares = Math.pow(length.value, 2) - Math.pow(height.value, 2);
-            if (differenceOfSquares >= 0) {
-                width.value = Math.round(Math.sqrt(differenceOfSquares));
-                if (dimWarn.hidden === false) {
-                    dimWarn.hidden = true;
+        switch (this) {
+            case length:
+            case height:
+                //При вводе длины стороны рассчитывается ширина. Высота не меняется
+                differenceOfSquares = Math.pow(length.value, 2) - Math.pow(height.value, 2);
+                if (differenceOfSquares >= 0) {
+                    width.value = Math.round(Math.sqrt(differenceOfSquares));
+                    if (dimWarn.hidden === false) {
+                        dimWarn.hidden = true;
+                    }
+                } else {
+                    width.value = 0;
+                    if (dimWarn.hidden === true) {
+                        dimWarn.hidden = false;
+                    }
                 }
-            } else {
-                width.value = 0;
-                if (dimWarn.hidden === true) {
-                    dimWarn.hidden = false;
+                break;
+            case width:
+                //При вводе ширины стороны рассчитывается высота. Длина не меняетя
+                differenceOfSquares = Math.pow(length.value, 2) - Math.pow(width.value, 2);
+                if (differenceOfSquares >= 0) {
+                    height.value = Math.round(Math.sqrt(differenceOfSquares));
+                    if (dimWarn.hidden === false) {
+                        dimWarn.hidden = true;
+                    }
+                } else {
+                    height.value = 0;
+                    if (dimWarn.hidden === true) {
+                        dimWarn.hidden = false;
+                    }
                 }
-            }
-        } else if (this === width) {
-            //При вводе ширины стороны рассчитывается высота. Длина не меняетя
-            differenceOfSquares = Math.pow(length.value, 2) - Math.pow(width.value, 2);
-            if (differenceOfSquares >= 0) {
-                height.value = Math.round(Math.sqrt(differenceOfSquares));
-                if (dimWarn.hidden === false) {
-                    dimWarn.hidden = true;
-                }
-            } else {
-                height.value = 0;
-                if (dimWarn.hidden === true) {
-                    dimWarn.hidden = false;
-                }
-            }
-        } else if (this === height) {
-            //При вводе высоты стороны рассчитывается ширина. Длина не меняется
-            differenceOfSquares = Math.pow(length.value, 2) - Math.pow(height.value, 2);
-            if (differenceOfSquares >= 0) {
-                width.value = Math.round(Math.sqrt(differenceOfSquares));
-                if (dimWarn.hidden === false) {
-                    dimWarn.hidden = true;
-                }
-            } else {
-                width.value = 0;
-                if (dimWarn.hidden === true) {
-                    dimWarn.hidden = false;
-                }
-            }
+                break;
         }
     }
 }
