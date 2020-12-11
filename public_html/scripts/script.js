@@ -343,44 +343,46 @@ window.onload = function () {
     function calculateTriangleSide() {
         //Расчет третьего размера стороны (длина-стороны-ширина) при изменении занчения в поле ввода размера
         let parent = this.parentNode.parentNode;
-        let currentSideIndex = parent.dataset.index;
+        let currentSideIndex = Number(parent.dataset.index);
         let dimWarn = parent.getElementsByClassName('dim_warn')[0];
         let length = parent.querySelector('.length');
         let width = parent.querySelector('.width');
         let height = parent.querySelector('.height');
-        let differenceOfSquares;
         switch (this) {
             case length:
-            case height:
                 //При вводе длины стороны рассчитывается ширина. Высота не меняется
-                differenceOfSquares = Math.pow(length.value, 2) - Math.pow(height.value, 2);
-                if (differenceOfSquares >= 0) {
-                    width.value = Math.round(Math.sqrt(differenceOfSquares));
-                    if (dimWarn.hidden === false) {
-                        dimWarn.hidden = true;
-                    }
-                } else {
-                    width.value = 0;
-                    if (dimWarn.hidden === true) {
-                        dimWarn.hidden = false;
-                    }
-                }
+                calculateSideThirdDimension(length, height, width, dimWarn);
+                sideDimensions[currentSideIndex][0] = Number(length.value);
+                sideDimensions[currentSideIndex][1] = Number(width.value);
+                break;
+            case height:
+                //При вводе высоты стороны рассчитывается ширина. Длина не меняется
+                calculateSideThirdDimension(length, height, width, dimWarn);
+                sideDimensions[currentSideIndex][1] = Number(width.value);
+                sideDimensions[currentSideIndex][2] = Number(height.value);
                 break;
             case width:
                 //При вводе ширины стороны рассчитывается высота. Длина не меняетя
-                differenceOfSquares = Math.pow(length.value, 2) - Math.pow(width.value, 2);
-                if (differenceOfSquares >= 0) {
-                    height.value = Math.round(Math.sqrt(differenceOfSquares));
-                    if (dimWarn.hidden === false) {
-                        dimWarn.hidden = true;
-                    }
-                } else {
-                    height.value = 0;
-                    if (dimWarn.hidden === true) {
-                        dimWarn.hidden = false;
-                    }
-                }
+                calculateSideThirdDimension(length, width, height, dimWarn);
+                sideDimensions[currentSideIndex][1] = Number(width.value);
+                sideDimensions[currentSideIndex][2] = Number(height.value);
                 break;
+        }
+        console.log(sideDimensions[currentSideIndex]);
+    }
+
+    function calculateSideThirdDimension(firstSide, secondSide, calculatedSide, dimWarn) {
+        let differenceOfSquares = Math.pow(firstSide.value, 2) - Math.pow(secondSide.value, 2);
+        if (differenceOfSquares >= 0) {
+            calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
+            if (dimWarn.hidden === false) {
+                dimWarn.hidden = true;
+            }
+        } else {
+            calculatedSide.value = 0;
+            if (dimWarn.hidden === true) {
+                dimWarn.hidden = false;
+            }
         }
     }
 }
