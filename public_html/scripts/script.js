@@ -4,6 +4,8 @@ window.onload = function () {
 
     document.getElementById('add_side_button').addEventListener('click', handleAddSideButtonClick);
 
+    document.getElementById('input_form').addEventListener('submit', handleSubmit());
+
     let sideDimensions = [];
 
     function createAddSideButton() {
@@ -107,6 +109,7 @@ window.onload = function () {
         newElement.type = 'checkbox';
         newElement.value = 'checked';
         newElement.name = `left_direction_${newSideIndex}`;
+        newElement.addEventListener('change', handleChangeCheckboxes);
         return newElement;
     }
 
@@ -123,7 +126,8 @@ window.onload = function () {
         let newElement = document.createElement('input');
         newElement.type = 'checkbox';
         newElement.value = 'checked';
-        newElement.name = `left_direction_${newSideIndex}`;
+        newElement.name = `down_direction_${newSideIndex}`;
+        newElement.addEventListener('change', handleChangeCheckboxes);
         return newElement;
     }
 
@@ -162,6 +166,7 @@ window.onload = function () {
         newElement.min = '0';
         newElement.name = `side_seam_${newSideIndex}`;
         newElement.required = true;
+        newElement.addEventListener('change', changeSideSeamInArray);
         return newElement;
     }
 
@@ -179,6 +184,7 @@ window.onload = function () {
         newElement.type = 'checkbox';
         newElement.value = 'checked';
         newElement.name = `negate_seam_${newSideIndex}`;
+        newElement.addEventListener('change', handleChangeCheckboxes);
         return newElement;
     }
 
@@ -275,6 +281,7 @@ window.onload = function () {
     }
 
     function renumberSideForms(addOrRemove, currentSideIndex) {
+        //Перенумерование сторон при изменении их количества
         let sideForms = document.querySelectorAll('.side_form'); //Коллекция всех сторон (форм ввода)
         let sidesCount = sideForms.length; //Количество сторон
         let sideNewIndex; //Новый индекс перенумеровываемой стороны
@@ -309,6 +316,7 @@ window.onload = function () {
     }
 
     function hideFormInputs(event) {
+        //Скрытие формы ввода стороны (упростить обертыванием в DIV)
         let itemsToHide = event.target.parentNode.querySelectorAll('label');
         let itemsCount = itemsToHide.length;
         for (let i = 0; i < itemsCount; i++) {
@@ -321,6 +329,7 @@ window.onload = function () {
     }
 
     function handleAddSideButtonClick(event) {
+        //Обработка нажатия кнопки добавления стороны
         let parent = event.target.parentElement;
         let addSideIndex = 0;
         if (parent.hasAttribute('data-index')) {
@@ -333,6 +342,7 @@ window.onload = function () {
     }
 
     function handleRemoveSideButtonClick(event) {
+        //Обработка нажатия кнопки удаления стороны
         let parent = event.target.parentElement;
         let currentSideIndex = Number(parent.dataset.index); //Индекс текущей стороны
         renumberSideForms(-1, currentSideIndex);
@@ -348,30 +358,38 @@ window.onload = function () {
         let length = parent.querySelector('.length');
         let width = parent.querySelector('.width');
         let height = parent.querySelector('.height');
+
+        //Проверка состояния чекбоксов для ввода в массив значения со знаком + или -
+        let horizontalDirection = (parent.querySelector(`[name='left_direction_${currentSideIndex}']`).checked) ? -1 : 1;
+        let verticalDirection = (parent.querySelector(`[name='down_direction_${currentSideIndex}']`).checked) ? -1 : 1;
+
         switch (this) {
             case length:
                 //При вводе длины стороны рассчитывается ширина. Высота не меняется
                 calculateSideThirdDimension(length, height, width, dimWarn);
+                //Ввод в массив измененных значений
                 sideDimensions[currentSideIndex][0] = Number(length.value);
-                sideDimensions[currentSideIndex][1] = Number(width.value);
+                sideDimensions[currentSideIndex][1] = Number(width.value) * horizontalDirection;
                 break;
             case height:
                 //При вводе высоты стороны рассчитывается ширина. Длина не меняется
                 calculateSideThirdDimension(length, height, width, dimWarn);
-                sideDimensions[currentSideIndex][1] = Number(width.value);
-                sideDimensions[currentSideIndex][2] = Number(height.value);
+                //Ввод в массив измененных значений
+                sideDimensions[currentSideIndex][1] = Number(width.value) * horizontalDirection;
+                sideDimensions[currentSideIndex][2] = Number(height.value) * verticalDirection;
                 break;
             case width:
                 //При вводе ширины стороны рассчитывается высота. Длина не меняетя
                 calculateSideThirdDimension(length, width, height, dimWarn);
-                sideDimensions[currentSideIndex][1] = Number(width.value);
-                sideDimensions[currentSideIndex][2] = Number(height.value);
+                //Ввод в массив измененных значений
+                sideDimensions[currentSideIndex][1] = Number(width.value) * horizontalDirection;
+                sideDimensions[currentSideIndex][2] = Number(height.value) * verticalDirection;
                 break;
         }
-        console.log(sideDimensions[currentSideIndex]);
     }
 
     function calculateSideThirdDimension(firstSide, secondSide, calculatedSide, dimWarn) {
+        //Расчет третьего размера стороны из двух других с выводом предупреждения при ошибочном вводе ширины или высоты
         let differenceOfSquares = Math.pow(firstSide.value, 2) - Math.pow(secondSide.value, 2);
         if (differenceOfSquares >= 0) {
             calculatedSide.value = Math.round(Math.sqrt(differenceOfSquares));
@@ -384,5 +402,31 @@ window.onload = function () {
                 dimWarn.hidden = false;
             }
         }
+    }
+
+    function changeSideSeamInArray() {
+        //Ввод в массив нового значения ширины монтажного шва
+        let currentSideIndex = Number(this.parentNode.parentNode.dataset.index);
+        sideDimensions[currentSideIndex][3] = Number(this.value);
+    }
+
+    function handleChangeCheckboxes() {
+        let currentSideIndex = Number(this.parentNode.parentNode.dataset.index);
+        let currentCheckbox = this.name;
+        switch (currentCheckbox) {
+            case `left_direction_${currentSideIndex}`:
+                sideDimensions[currentSideIndex][1] = - sideDimensions[currentSideIndex][1];
+                break
+            case `down_direction_${currentSideIndex}`:
+                sideDimensions[currentSideIndex][2] = - sideDimensions[currentSideIndex][2];
+                break
+            case `negate_seam_${currentSideIndex}`:
+                sideDimensions[currentSideIndex][3] = - sideDimensions[currentSideIndex][3];
+                break
+        }
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
     }
 }
