@@ -4,7 +4,9 @@ window.onload = function () {
 
     document.getElementById('add_side_button').addEventListener('click', handleAddSideButtonClick);
 
-    document.getElementById('input_form').addEventListener('submit', handleSubmit());
+    document.getElementById('input_form').addEventListener('submit', handleSubmit)
+
+    document.getElementById('send_values').addEventListener('click', sendValues);
 
     let sideDimensions = [];
 
@@ -203,7 +205,7 @@ window.onload = function () {
         if (addSideIndex === 0) {
             parent.prepend(side);
             document.getElementById('add_side_button').hidden = true;
-            document.getElementById('sendvalues').hidden = false;
+            document.getElementById('send_values').hidden = false;
         } else {
             parent.after(side);
         }
@@ -306,11 +308,11 @@ window.onload = function () {
             }
         }
 
-        document.getElementById('sendvalues').hidden = sidesCount + addOrRemove === 0;
+        document.getElementById('send_values').hidden = sidesCount + addOrRemove === 0;
 
-        document.getElementById('sendvalues').disabled = sidesCount + addOrRemove < 3;
+        document.getElementById('send_values').disabled = sidesCount + addOrRemove < 3;
 
-        document.getElementById('sendvalues').value = sidesCount + addOrRemove < 3 ? 'Мало сторон' : 'Рассчитать';
+        document.getElementById('send_values').value = sidesCount + addOrRemove < 3 ? 'Мало сторон' : 'Рассчитать';
 
         document.getElementById('add_side_button').hidden = sidesCount + addOrRemove !== 0;
     }
@@ -428,5 +430,11 @@ window.onload = function () {
 
     function handleSubmit(event) {
         event.preventDefault();
+    }
+
+    function sendValues() {
+        console.log(sideDimensions);
+        let xhr = xmlHttpRequest();
+        xhr.open("POST", "../../Helios/src/calculate.php", true);
     }
 }

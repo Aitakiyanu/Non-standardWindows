@@ -16,7 +16,7 @@ if (count($_POST) > 0) {
         <?php include_once 'side-form.php';?>
         <fieldset>
             <legend>Отправить значения</legend>
-            <input id="sendvalues" type="submit" value="ОК">
+            <input id="send_values" type="submit" value="ОК">
         </fieldset>
     </fieldset>
 </form>
