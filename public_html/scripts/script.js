@@ -433,8 +433,8 @@ window.onload = function () {
     }
 
     function sendValues() {
-        console.log(sideDimensions);
-        let xhr = xmlHttpRequest();
-        xhr.open("POST", "../../Helios/src/calculate.php", true);
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../Helios/src/calculate", true);
+        xhr.send(JSON.stringify(sideDimensions));
     }
 }
