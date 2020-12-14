@@ -434,7 +434,12 @@ window.onload = function () {
 
     function sendValues() {
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../Helios/src/calculate", true);
+        xhr.open("POST", "../Helios/src/calculate.php", true);
         xhr.send(JSON.stringify(sideDimensions));
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(this.response);
+            }
+        }
     }
 }
