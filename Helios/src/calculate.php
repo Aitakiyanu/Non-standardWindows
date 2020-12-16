@@ -1,9 +1,5 @@
 <?php
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
-    if (isset($_POST))
-    {
-        var_dump($_POST);
-    } else {
-        echo 'no data';
-    }
+    $data = json_decode(file_get_contents('php://input'), true);
+    var_dump($data);
 }
