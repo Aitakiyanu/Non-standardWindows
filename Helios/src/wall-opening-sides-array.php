@@ -5,30 +5,17 @@ include_once 'WallOpeningSide.php';
 
 $wallOpeningSides = [];
 
-if (count($_POST) > 0) {
-    $sidesCount = 0;
-    $sideToCount = 1;
+//Считаем количество сторон
+$sidesCount = count($data);
 
-    //Считаем количество сторон
-    while (isset($_POST["wall_opening_side_length_{$sideToCount}"])) {
-        $sidesCount++;
-        $sideToCount++;
-    }
-    //Заполняем массив сторон проема объектами - сторонами
-    for ($i = 1; $i <= $sidesCount; $i++) {
-        $seamSign = isset($_POST["negate_assembly_seam_{$i}"]) ? -1 : 1; //Знак для вычисления монтажного шва либо захода за четверть
-        $prvSide = ($i === 1 ? $sidesCount : $i) - 1; //-1 для перехода на индексы массива
+//Заполняем массив сторон проема объектами - сторонами
+for ($i = 0; $i < $sidesCount; $i++) {
+    $prvSide = $i === 0 ? $sidesCount : $i - 1; //Индекс предыдущей стороны
 
-        //Определяем координаты окончания предыдущей стороны для передачи в текущую в качестве начала. Первая сторона начинается в (0, 0)
-        $prvSideX = isset($wallOpeningSides[$prvSide]) ? $wallOpeningSides[$prvSide]->endX : 0;
-        $prvSideY = isset($wallOpeningSides[$prvSide]) ? $wallOpeningSides[$prvSide]->endY : 0;
+    //Определяем координаты окончания предыдущей стороны для передачи в текущую в качестве начала. Первая сторона начинается в (0, 0)
+    $prvSideX = isset($wallOpeningSides[$prvSide]) ? $wallOpeningSides[$prvSide]->endX : 0;
+    $prvSideY = isset($wallOpeningSides[$prvSide]) ? $wallOpeningSides[$prvSide]->endY : 0;
 
-        //Создаем в массиве очередной объект - сторону. Ширина и высота стороны с учетом напраления от предыдущей
-        $wallOpeningSides[$i] = new WallOpeningSide($_POST["wall_opening_side_length_{$i}"],
-            $_POST["wall_opening_side_width_{$i}"] * ($_POST["left_or_right_{$i}"] <=> 0),
-            $_POST["wall_opening_side_height_{$i}"] * ($_POST["up_or_down_{$i}"] <=> 0),
-            $seamSign * $_POST["side_assembly_seam_{$i}"],
-            $prvSideX,
-            $prvSideY);
-    }
+    //Создаем в массиве очередной объект - сторону
+    $wallOpeningSides[$i] = new WallOpeningSide($data[$i][0], $data[$i][1], $data[$i][2], $data[$i][3], $prvSideX, $prvSideY);
 }

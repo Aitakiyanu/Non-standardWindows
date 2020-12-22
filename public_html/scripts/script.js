@@ -2,13 +2,20 @@
 
 window.onload = function () {
 
-    document.getElementById('add_side_button').addEventListener('click', handleAddSideButtonClick);
-
     document.getElementById('input_form').addEventListener('submit', handleSubmit)
 
     document.getElementById('send_values').addEventListener('click', sendValues);
 
-    let sideDimensions = [];
+    let initialSign = true;//Признак начального создания формы
+
+    let sideDimensions = []; //Массив размеров сторон
+
+    for (let i = 0; i < 3; i++) { //Создание первоначальной формы на три стороны
+        addSide(document.getElementById('entire_form'), i);
+        sideDimensions.splice(i, 0, [0, 0, 0, 20]);
+    }
+
+    initialSign = false; //После начального создания формы признак "отключается"
 
     function createAddSideButton() {
         //Кнопка добавления стороны (вставить в форме каждой стороны после элемента ввода длины стороны)
@@ -202,10 +209,8 @@ window.onload = function () {
 
         //Добавляем сторону (форму)
         let side = createSideFormFieldset(addSideIndex);
-        if (addSideIndex === 0) {
-            parent.prepend(side);
-            document.getElementById('add_side_button').hidden = true;
-            document.getElementById('send_values').hidden = false;
+        if (initialSign === true) {
+            parent.lastElementChild.before(side);
         } else {
             parent.after(side);
         }
@@ -230,6 +235,9 @@ window.onload = function () {
         lengthInput.after(addButton);
         let removeButton = createRemoveSideButton();
         addButton.after(removeButton);
+
+        //Скрываем кнопку удаления при первоначальном создании формы
+        removeButton.hidden = initialSign;
 
         //Перенос строки
         let br = document.createElement('br');
@@ -307,18 +315,24 @@ window.onload = function () {
                 }
             }
         }
-
-        document.getElementById('send_values').hidden = sidesCount + addOrRemove === 0;
-
-        document.getElementById('send_values').disabled = sidesCount + addOrRemove < 3;
-
-        document.getElementById('send_values').value = sidesCount + addOrRemove < 3 ? 'Мало сторон' : 'Рассчитать';
-
-        document.getElementById('add_side_button').hidden = sidesCount + addOrRemove !== 0;
+        if (sidesCount + addOrRemove === 3) {
+            let removeSideButtons = document.querySelectorAll('.remove_side_button');
+            let removeSideButtonsCount = removeSideButtons.length;
+            for (let i = 0; i < removeSideButtonsCount; i++) {
+                removeSideButtons[i].hidden = true;
+            }
+        }
+        if (sidesCount === 3) {
+            let removeSideButtons = document.querySelectorAll('.remove_side_button');
+            let removeSideButtonsCount = removeSideButtons.length;
+            for (let i = 0; i < removeSideButtonsCount; i++) {
+                removeSideButtons[i].hidden = false;
+            }
+        }
     }
 
     function hideFormInputs(event) {
-        //Скрытие формы ввода стороны (упростить обертыванием в DIV)
+        //Скрытие формы ввода стороны (упростить обертыванием в контейнер)
         let itemsToHide = event.target.parentNode.querySelectorAll('label');
         let itemsCount = itemsToHide.length;
         for (let i = 0; i < itemsCount; i++) {
@@ -443,4 +457,5 @@ window.onload = function () {
             }
         }
     }
+
 }
