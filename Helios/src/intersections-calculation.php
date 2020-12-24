@@ -3,14 +3,12 @@ namespace Helios;
 
 include_once 'IntersectionPoint.php';
 
-if (isset($wallOpeningSides)) {
-    $strLinesCount = 0; //Начальный индекс для заполнения массива номеров ненулевых сторон
-    $strLines = []; //Вспомогательный массив номеров сторон, не равных нулю (заменить на ограничение ввода)
-    foreach ($wallOpeningSides as $number => $side) {
-        if ($side->newCoefficientC !== 0) {
-            $strLines[$strLinesCount] = (int)$number;
-            $strLinesCount++;
-        }
+$strLinesCount = 0; //Начальный индекс для заполнения массива номеров ненулевых сторон
+$strLines = []; //Вспомогательный массив номеров сторон, не равных нулю (заменить на ограничение ввода)
+foreach ($wallOpeningSides as $number => $side) {
+    if ($side->newCoefficientC !== 0) {
+        $strLines[$strLinesCount] = (int)$number;
+        $strLinesCount++;
     }
 }
 

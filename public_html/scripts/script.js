@@ -12,7 +12,7 @@ window.onload = function () {
 
     for (let i = 0; i < 3; i++) { //Создание первоначальной формы на три стороны
         addSide(document.getElementById('entire_form'), i);
-        sideDimensions.splice(i, 0, [0, 0, 0, 20]);
+        sideDimensions.splice(i, 0, [40, 28, 28, 20]);
     }
 
     initialSign = false; //После начального создания формы признак "отключается"
@@ -75,8 +75,8 @@ window.onload = function () {
         //Поле ввода длины стороны (вставить в элемент ввода длины стороны последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
-        newElement.value = '0';
-        newElement.min = '0';
+        newElement.value = '40';
+        newElement.min = '40';
         newElement.name = `side_length_${newSideIndex}`;
         newElement.classList.add('side_dimension', 'length');
         newElement.required = true;
@@ -95,7 +95,7 @@ window.onload = function () {
         //Поле ввода ширины стороны (вставить в элемент ввода ширины стороны последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
-        newElement.value = '0';
+        newElement.value = '28';
         newElement.min = '0';
         newElement.name = `side_width_${newSideIndex}`;
         newElement.classList.add('side_dimension', 'width');
@@ -151,7 +151,7 @@ window.onload = function () {
         //Поле ввода высоты стороны (вставить в элемент ввода высоты стороны последним потомком)
         let newElement = document.createElement('input');
         newElement.type = 'number';
-        newElement.value = '0';
+        newElement.value = '28';
         newElement.min = '0';
         newElement.name = `side_height_${newSideIndex}`;
         newElement.classList.add('side_dimension', 'height');
@@ -354,7 +354,7 @@ window.onload = function () {
             renumberSideForms(1, currentSideIndex);
         }
         addSide(parent, addSideIndex);
-        sideDimensions.splice(addSideIndex, 0, [0, 0, 0, 20]);
+        sideDimensions.splice(addSideIndex, 0, [40, 28, 28, 20]);
     }
 
     function handleRemoveSideButtonClick(event) {
