@@ -355,6 +355,7 @@ window.onload = function () {
         }
         addSide(parent, addSideIndex);
         sideDimensions.splice(addSideIndex, 0, [40, 28, 28, 20]);
+        checkWidthAndHeightValuesSum();
     }
 
     function handleRemoveSideButtonClick(event) {
@@ -364,6 +365,7 @@ window.onload = function () {
         renumberSideForms(-1, currentSideIndex);
         parent.remove();
         sideDimensions.splice(currentSideIndex, 1);
+        checkWidthAndHeightValuesSum();
     }
 
     function calculateTriangleSide() {
@@ -402,6 +404,7 @@ window.onload = function () {
                 sideDimensions[currentSideIndex][2] = Number(height.value) * verticalDirection;
                 break;
         }
+        checkWidthAndHeightValuesSum();
     }
 
     function calculateSideThirdDimension(firstSide, secondSide, calculatedSide, dimWarn) {
@@ -440,6 +443,7 @@ window.onload = function () {
                 sideDimensions[currentSideIndex][3] = - sideDimensions[currentSideIndex][3];
                 break
         }
+        checkWidthAndHeightValuesSum();
     }
 
     function handleSubmit(event) {
@@ -458,4 +462,18 @@ window.onload = function () {
         }
     }
 
+    function checkWidthAndHeightValuesSum() {
+        let totalWidth = 0;
+        let totalHeight = 0;
+        let sender = document.getElementById('send_values');
+        for (let i = 0, cnt = sideDimensions.length; i < cnt; i++) {
+            totalWidth += sideDimensions[i][1];
+            totalHeight += sideDimensions[i][2];
+        }
+        if (totalWidth === 0 && totalHeight === 0) {
+            sender.disabled = false;
+        } else {
+            sender.disabled = true;
+        }
+    }
 }
