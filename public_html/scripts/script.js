@@ -10,10 +10,22 @@ window.onload = function () {
 
     let sideDimensions = []; //Массив размеров сторон
 
+    let visualizationPoints = []; //Массив точек (углов) для визуализации
+
     for (let i = 0; i < 3; i++) { //Создание первоначальной формы на три стороны
         addSide(document.getElementById('entire_form'), i);
         sideDimensions.splice(i, 0, [40, 28, 28, 20]);
+        if (i === 0) {
+            visualizationPoints.splice(i, 0, [0, 0]);
+        } else {
+            let X = visualizationPoints[i - 1][0] + sideDimensions[i - 1][1];
+            let Y = visualizationPoints[i - 1][1] + sideDimensions[i - 1][2];
+            visualizationPoints.splice(i, 0, [X, Y])
+        }
     }
+    addVisualizationArea();
+
+    console.log(visualizationPoints);
 
     initialSign = false; //После начального создания формы признак "отключается"
 
@@ -475,5 +487,27 @@ window.onload = function () {
         } else {
             sender.disabled = true;
         }
+    }
+
+    function addVisualizationArea() {
+        let inputsForm = document.getElementById('entire_form');
+        let svgOutline = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+        svgOutline.setAttributeNS(null, 'width', '200');
+        svgOutline.setAttributeNS(null, 'height', '200');
+        svgOutline.setAttributeNS(null, 'viewBox', '0 0 200 200');
+        let outlineFigure = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
+        outlineFigure.setAttributeNS(null, 'points', '10,10 190,10 190,190 10,190');
+        outlineFigure.setAttributeNS(null, 'fill', 'none');
+        outlineFigure.setAttributeNS(null, 'stroke', 'green');
+        inputsForm.after(svgOutline);
+        svgOutline.append(outlineFigure);
+    }
+
+    function calculateVisualizationPoints() {
+
+    }
+
+    function addVisualization() {
+
     }
 }
